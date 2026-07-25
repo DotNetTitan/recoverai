@@ -10,6 +10,7 @@
   width: 100%;
 }
 
+/* Q&A Section */
 .sectionTitle {
   font-size: var(--font-h2);
   font-weight: 700;
@@ -55,6 +56,7 @@
   border-top: 1px solid rgba(209, 205, 199, 0.1);
 }
 
+/* Categories Section */
 .categoriesSection {
   margin-top: 12px;
 }

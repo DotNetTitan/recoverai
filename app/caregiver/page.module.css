@@ -10,6 +10,7 @@
   width: 100%;
 }
 
+/* Section Titles */
 .sectionTitle {
   font-size: var(--font-h2);
   font-weight: 700;
@@ -32,6 +33,7 @@
   margin-bottom: 12px;
 }
 
+/* Feature Cards */
 .featureCard {
   background: var(--color-calm-blue);
   color: white;
@@ -67,6 +69,7 @@
   width: 100%;
 }
 
+/* Articles */
 .articleButton {
   display: flex;
   align-items: center;
@@ -88,6 +91,7 @@
   font-size: var(--font-small);
 }
 
+/* Share Card */
 .shareCard {
   text-align: center;
   padding: 24px;

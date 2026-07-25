@@ -2,7 +2,7 @@
 // app/safety/page.tsx — Safety Tools (Trigger Tracker, Safety Plan, Grounding)
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, ArrowRight, Wind, Activity, ClipboardList, Play, Square } from 'lucide-react';
+import { Activity, ArrowLeft, ArrowRight, ClipboardList, Play, Square, Wind } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import { APP_ROUTES, BREATHING_EXERCISE_STEPS, GROUNDING_SENSE_STEPS } from '@/utils/constants';
 import styles from './page.module.css';
@@ -18,7 +18,7 @@ export default function SafetyPage() {
   return (
     <div className={styles.page}>
       <header className="page-header">
-        <button className="btn btn-ghost" onClick={() => router.push(APP_ROUTES.HOME)}>
+        <button className="btn btn-ghost" onClick={() => router.push(APP_ROUTES.HOME)} aria-label="Go back to home">
           <ArrowLeft size={20} /> Back
         </button>
         <h1>Safety Tools</h1>

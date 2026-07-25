@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, MessageCircle } from 'lucide-react';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { useGemini } from '@/hooks/useGemini';
 import { useSpeech } from '@/hooks/useSpeech';
-import { AI_CONFIG, APP_ROUTES, CAREGIVER_SYSTEM_PROMPT } from '@/utils/constants';
+import { AI_CONFIG, APP_ROUTES } from '@/utils/constants';
+import { CAREGIVER_SYSTEM_PROMPT } from '@/utils/prompts';
 import { CaregiverGuidance, CaregiverHub } from './components';
 import styles from './page.module.css';
 
@@ -24,6 +26,15 @@ export default function CaregiverPage() {
   const [situationInput, setSituationInput] = useState('');
   const [guidance, setGuidance] = useState('');
   const [shareError, setShareError] = useState<string | null>(null);
+
+  function handleBack() {
+    stopSpeaking();
+    if (tab === 'what-do-i-say') {
+      setTab('hub');
+    } else {
+      router.push(APP_ROUTES.HOME);
+    }
+  }
 
   async function handleGetGuidance() {
     if (!situationInput.trim()) return;
@@ -45,43 +56,34 @@ export default function CaregiverPage() {
     }
   }
 
-  if (tab === 'what-do-i-say') {
-    return (
+  return (
+    <ErrorBoundary label="Caregiver Support">
       <div className={styles.page}>
         <header className="page-header">
-          <button className="btn btn-ghost" onClick={() => { stopSpeaking(); setTab('hub'); }}>
+          <button className="btn btn-ghost" onClick={handleBack} aria-label="Go back">
             <ArrowLeft size={20} /> Back
           </button>
-          <h1>What Do I Say?</h1>
+          <h1>{tab === 'what-do-i-say' ? 'What Do I Say?' : 'Caregiver Hub'}</h1>
         </header>
-        <CaregiverGuidance
-          error={error}
-          guidance={guidance}
-          input={situationInput}
-          loading={loading}
-          onInputChange={setSituationInput}
-          onSubmit={handleGetGuidance}
-          onSpeak={speak}
-        />
+        {tab === 'what-do-i-say' ? (
+          <CaregiverGuidance
+            error={error}
+            guidance={guidance}
+            input={situationInput}
+            loading={loading}
+            onInputChange={setSituationInput}
+            onSubmit={handleGetGuidance}
+            onSpeak={speak}
+          />
+        ) : (
+          <CaregiverHub
+            iconMap={CAREGIVER_ICON_MAP}
+            shareError={shareError}
+            onOpenGuidance={() => setTab('what-do-i-say')}
+            onShare={handleShare}
+          />
+        )}
       </div>
-    );
-  }
-
-  return (
-    <div className={styles.page}>
-      <header className="page-header">
-        <button className="btn btn-ghost" onClick={() => router.push(APP_ROUTES.HOME)}>
-          <ArrowLeft size={20} /> Back
-        </button>
-        <h1>Caregiver Hub</h1>
-      </header>
-
-      <CaregiverHub
-        iconMap={CAREGIVER_ICON_MAP}
-        shareError={shareError}
-        onOpenGuidance={() => setTab('what-do-i-say')}
-        onShare={handleShare}
-      />
-    </div>
+    </ErrorBoundary>
   );
 }

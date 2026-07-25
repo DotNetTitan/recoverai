@@ -1,8 +1,9 @@
 'use client';
 // app/settings/page.tsx - Settings Page
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Bell, ChevronRight, LogOut, Shield, User } from 'lucide-react';
-import { STORAGE_KEYS } from '@/context/types';
+import { useApp } from '@/context/AppContext';
 import { useProfile } from '@/hooks/useProfile';
 import { APP_ROUTES, SETTINGS_COPY } from '@/utils/constants';
 import styles from './page.module.css';
@@ -10,20 +11,18 @@ import styles from './page.module.css';
 export default function SettingsPage() {
   const router = useRouter();
   const { profile } = useProfile();
+  const { resetData } = useApp();
+  const [confirmingReset, setConfirmingReset] = useState(false);
 
   function handleReset() {
-    if (confirm(SETTINGS_COPY.RESET_CONFIRM)) {
-      localStorage.removeItem(STORAGE_KEYS.PROFILE);
-      localStorage.removeItem(STORAGE_KEYS.TRIGGER_LOG);
-      localStorage.removeItem(STORAGE_KEYS.SAFETY_PLAN);
-      window.location.href = APP_ROUTES.ONBOARDING;
-    }
+    resetData();
+    router.push(APP_ROUTES.ONBOARDING);
   }
 
   return (
-    <div className={`page ${styles.page}`}>
+    <div className={styles.page}>
       <header className="page-header">
-        <button className="btn btn-ghost" onClick={() => router.push(APP_ROUTES.HOME)}>
+        <button className="btn btn-ghost" onClick={() => router.push(APP_ROUTES.HOME)} aria-label="Go back to home">
           <ArrowLeft size={20} /> Back
         </button>
         <h1>Settings</h1>
@@ -59,9 +58,23 @@ export default function SettingsPage() {
         </div>
 
         <div className={styles.footer}>
-          <button className={`btn btn-ghost btn-full ${styles.resetButton}`} onClick={handleReset}>
-            <LogOut size={20} /> Reset App Data
-          </button>
+          {confirmingReset ? (
+            <div className="card" role="alert">
+              <p>{SETTINGS_COPY.RESET_CONFIRM}</p>
+              <div className={styles.confirmActions}>
+                <button className="btn btn-crisis" onClick={handleReset}>
+                  Yes, Reset Everything
+                </button>
+                <button className="btn btn-ghost" onClick={() => setConfirmingReset(false)}>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : (
+            <button className={`btn btn-ghost btn-full ${styles.resetButton}`} onClick={() => setConfirmingReset(true)}>
+              <LogOut size={20} /> Reset App Data
+            </button>
+          )}
           <p className={styles.version}>{SETTINGS_COPY.VERSION_LABEL}</p>
         </div>
       </main>

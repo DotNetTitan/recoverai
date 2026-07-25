@@ -14,8 +14,8 @@ import {
   ONBOARDING_TOTAL_STEPS,
   SUBSTANCE_OPTIONS,
   TRIGGER_OPTIONS,
-  toggleSelectedItem,
 } from '@/utils/constants';
+import { toggleSelectedItem } from '@/utils/helpers';
 import styles from './page.module.css';
 
 const ROLE_ICON_MAP: Record<string, React.ElementType> = {

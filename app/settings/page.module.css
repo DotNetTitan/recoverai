@@ -1,4 +1,12 @@
+/* app/settings/page.module.css */
 .page {
+  min-height: 100dvh;
+  min-height: var(--dvh-fallback, 100vh);
+  display: flex;
+  flex-direction: column;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
   padding-bottom: 40px;
 }
 
@@ -53,6 +61,12 @@
 
 .resetButton {
   color: var(--color-crisis-red);
+}
+
+.confirmActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
 }
 
 .version {

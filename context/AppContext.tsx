@@ -10,6 +10,7 @@ import {
 } from 'react';
 import { AppState, UserProfile, TriggerEntry, SafetyPlan } from '@/context/types';
 import {
+  clearAllData,
   getProfile,
   saveProfile,
   getTriggerLog,
@@ -22,6 +23,7 @@ interface AppContextValue extends AppState {
   updateProfile: (p: UserProfile) => void;
   addTriggerEntry: (e: TriggerEntry) => void;
   updateSafetyPlan: (plan: SafetyPlan) => void;
+  resetData: () => void;
   isLoaded: boolean;
 }
 
@@ -58,6 +60,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setSafetyPlan(plan);
   }, []);
 
+  const resetData = useCallback(() => {
+    clearAllData();
+    setProfile(null);
+    setTriggerLog([]);
+    setSafetyPlan(null);
+  }, []);
+
   return (
     <AppContext.Provider
       value={{
@@ -68,6 +77,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         updateProfile,
         addTriggerEntry,
         updateSafetyPlan,
+        resetData,
       }}
     >
       {children}

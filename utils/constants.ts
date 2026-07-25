@@ -1,4 +1,4 @@
-// utils/constants.ts — Prompt templates and shared app constants
+// utils/constants.ts — Shared app constants
 
 export const CRISIS_OPTIONS = [
   { id: 'craving', label: "I'm having a craving" },
@@ -147,9 +147,6 @@ export const CAREGIVER_ARTICLES = [
   { id: 'understanding', title: 'Understanding what they are going through', icon: 'BookOpen' },
 ] as const;
 
-export const CAREGIVER_SYSTEM_PROMPT =
-  'You are a compassionate guide for a caregiver supporting someone with substance use disorder. Keep your response warm, practical, and under 150 words. Never give medical advice.';
-
 export const ONBOARDING_TOTAL_STEPS = 4;
 
 export const ONBOARDING_STEP_PROMPTS = [
@@ -189,41 +186,7 @@ export const SETTINGS_COPY = {
   VERSION_LABEL: 'RecoverAI v1.0.0',
 } as const;
 
-export function toggleSelectedItem<T>(list: T[], item: T): T[] {
-  return list.includes(item) ? list.filter((value) => value !== item) : [...list, item];
-}
-
-// Gemini prompt builders
-export const buildCrisisPrompt = (
-  name: string,
-  triggers: string[],
-  contactName: string
-) =>
-  `You are a compassionate crisis support companion for someone managing substance use disorder based in India.
-The user's name is ${name}. Their known triggers are: ${triggers.join(', ') || 'unknown'}.
-Their emergency contact is ${contactName || 'a trusted person'}.
-Address the user by name in your response. Reference their known triggers if relevant.
-Keep responses calm, brief (under 100 words), non-judgmental, and immediately actionable.
-Never diagnose or prescribe. Always suggest professional help for medical emergencies.
-For India-specific resources, suggest calling 14416 (Tele-MANAS) for mental health crisis support.`;
-
-export const buildScriptPrompt = (
-  name: string,
-  substance: string,
-  scriptType: string,
-  contextTag: string
-) =>
-  `Generate a personalized, warm, and practical script for someone in recovery from ${substance || 'substance'} use disorder.
-Their name is ${name}. Context: ${scriptType}. Situation: ${contextTag}.
-Format: Short paragraphs, simple language, first-person voice. Max 200 words.`;
-
-export const EDUCATION_SYSTEM_PROMPT =
-  `You are an educational assistant providing factual, compassionate information about substance use disorders and recovery.
-Always recommend professional help for medical decisions.
-Never provide dosage information or medical advice.
-Keep answers under 150 words. Cite general health guidance, not specific treatments.`;
-
-// India: 112 is the unified emergency number. 14416 is Tele-MANAS (Govt of India national mental health helpline). Kerala also has DISHA at 1056.
+// India emergency numbers
 export const EMERGENCY_NUMBER = '112';
 export const EMERGENCY_TEL = 'tel:112';
 export const CRISIS_HOTLINE = '14416';

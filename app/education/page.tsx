@@ -2,10 +2,12 @@
 // app/education/page.tsx — Educational Resources Hub with AI Q&A
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Brain, ShieldAlert, HeartHandshake, Pill, Phone } from 'lucide-react';
+import { ArrowLeft, Brain, HeartHandshake, Phone, Pill, ShieldAlert } from 'lucide-react';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { useGemini } from '@/hooks/useGemini';
 import { useSpeech } from '@/hooks/useSpeech';
-import { AI_CONFIG, APP_ROUTES, EDUCATION_SYSTEM_PROMPT } from '@/utils/constants';
+import { AI_CONFIG, APP_ROUTES } from '@/utils/constants';
+import { EDUCATION_SYSTEM_PROMPT } from '@/utils/prompts';
 import { EducationCategories, EducationQa } from './components';
 import styles from './page.module.css';
 
@@ -40,26 +42,28 @@ export default function EducationPage() {
   }
 
   return (
-    <div className={styles.page}>
-      <header className="page-header">
-        <button className="btn btn-ghost" onClick={() => { stopSpeaking(); router.push(APP_ROUTES.HOME); }}>
-          <ArrowLeft size={20} /> Back
-        </button>
-        <h1>Learn</h1>
-      </header>
+    <ErrorBoundary label="Educational Resources">
+      <div className={styles.page}>
+        <header className="page-header">
+          <button className="btn btn-ghost" onClick={() => { stopSpeaking(); router.push(APP_ROUTES.HOME); }} aria-label="Go back to home">
+            <ArrowLeft size={20} /> Back
+          </button>
+          <h1>Learn</h1>
+        </header>
 
-      <main className="section stack-lg">
-        <EducationQa
-          answer={answer}
-          error={error}
-          loading={loading}
-          query={query}
-          onAsk={handleAsk}
-          onQueryChange={setQuery}
-          onSpeak={speak}
-        />
-        <EducationCategories iconMap={EDUCATION_ICON_MAP} />
-      </main>
-    </div>
+        <main className="section stack-lg">
+          <EducationQa
+            answer={answer}
+            error={error}
+            loading={loading}
+            query={query}
+            onAsk={handleAsk}
+            onQueryChange={setQuery}
+            onSpeak={speak}
+          />
+          <EducationCategories iconMap={EDUCATION_ICON_MAP} />
+        </main>
+      </div>
+    </ErrorBoundary>
   );
 }

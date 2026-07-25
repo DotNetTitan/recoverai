@@ -43,3 +43,13 @@ export const getSafetyPlan = (): SafetyPlan | null =>
 
 export const saveSafetyPlan = (plan: SafetyPlan): void =>
   safeSet(STORAGE_KEYS.SAFETY_PLAN, plan);
+
+export const clearAllData = (): void => {
+  try {
+    localStorage.removeItem(STORAGE_KEYS.PROFILE);
+    localStorage.removeItem(STORAGE_KEYS.TRIGGER_LOG);
+    localStorage.removeItem(STORAGE_KEYS.SAFETY_PLAN);
+  } catch {
+    console.error('Failed to clear app data from localStorage');
+  }
+};

@@ -3,12 +3,13 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { AlertCircle, ArrowLeft, Flame, Leaf, Users, Wind } from 'lucide-react';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { AiStatus } from '@/components/AiStatus';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { useGemini } from '@/hooks/useGemini';
 import { useProfile } from '@/hooks/useProfile';
 import { useSpeech } from '@/hooks/useSpeech';
-import { AI_CONFIG, APP_ROUTES, buildCrisisPrompt } from '@/utils/constants';
+import { AI_CONFIG, APP_ROUTES } from '@/utils/constants';
+import { buildCrisisPrompt } from '@/utils/prompts';
 import { CrisisResponse, CrisisSelect, EmergencyActions } from './components';
 import styles from './page.module.css';
 
@@ -81,7 +82,7 @@ export default function CrisisPage() {
   return (
     <ErrorBoundary label="Crisis Mode">
       <div className={styles.page}>
-        <div className={styles.topBar}>
+        <header className={styles.topBar}>
           <button
             className="btn btn-ghost"
             onClick={() => {
@@ -93,7 +94,7 @@ export default function CrisisPage() {
             <ArrowLeft size={20} /> Back
           </button>
           <span className={styles.topTitle}>Crisis Support</span>
-        </div>
+        </header>
 
         <main className={styles.main}>
           {phase === 'select' && (

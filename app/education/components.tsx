@@ -1,7 +1,7 @@
 'use client';
 import { ChevronRight, Search, Volume2 } from 'lucide-react';
-import { EDUCATION_CATEGORIES } from '@/utils/constants';
 import { AiStatus } from '@/components/AiStatus';
+import { EDUCATION_CATEGORIES } from '@/utils/constants';
 import styles from './page.module.css';
 
 interface EducationQaProps {
@@ -39,7 +39,7 @@ export function EducationQa({
           onChange={(event) => onQueryChange(event.target.value)}
           disabled={loading}
         />
-        <button type="submit" className="btn btn-primary" disabled={loading || !query.trim()}>
+        <button type="submit" className="btn btn-primary" disabled={loading || !query.trim()} aria-label="Search">
           <Search size={20} />
         </button>
       </form>
@@ -80,7 +80,7 @@ export function EducationCategories({ iconMap }: EducationCategoriesProps) {
               </div>
               <div className={styles.articleList}>
                 {cat.articles.map((article) => (
-                  <button key={article} className={styles.articleLink}>
+                  <button key={article} type="button" className={styles.articleLink}>
                     {article} <ChevronRight size={16} />
                   </button>
                 ))}

@@ -2,13 +2,14 @@
 // app/scripts/page.tsx — Personalized Emergency Scripts
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Users, Home, MessageCircle, ShieldOff } from 'lucide-react';
-import { useProfile } from '@/hooks/useProfile';
-import { useGemini } from '@/hooks/useGemini';
-import { useSpeech } from '@/hooks/useSpeech';
-import { AI_CONFIG, APP_ROUTES, SCRIPT_TYPES, UI_TIMING, buildScriptPrompt } from '@/utils/constants';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { ArrowLeft, Home, MessageCircle, ShieldOff, Users } from 'lucide-react';
 import { AiStatus } from '@/components/AiStatus';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { useGemini } from '@/hooks/useGemini';
+import { useProfile } from '@/hooks/useProfile';
+import { useSpeech } from '@/hooks/useSpeech';
+import { AI_CONFIG, APP_ROUTES, SCRIPT_TYPES, UI_TIMING } from '@/utils/constants';
+import { buildScriptPrompt } from '@/utils/prompts';
 import { ScriptContextSelector, ScriptResponse, ScriptTypeSelector } from './components';
 import styles from './page.module.css';
 
@@ -90,54 +91,54 @@ export default function ScriptsPage() {
 
   return (
     <ErrorBoundary label="Emergency Scripts">
-    <div className={styles.page}>
-      <header className="page-header">
-        <button className="btn btn-ghost" onClick={() => { stopSpeaking(); router.push(APP_ROUTES.HOME); }}>
-          <ArrowLeft size={20} /> Back
-        </button>
-        <h1>Scripts</h1>
-      </header>
+      <div className={styles.page}>
+        <header className="page-header">
+          <button className="btn btn-ghost" onClick={() => { stopSpeaking(); router.push(APP_ROUTES.HOME); }} aria-label="Go back to home">
+            <ArrowLeft size={20} /> Back
+          </button>
+          <h1>Scripts</h1>
+        </header>
 
-      <main className="section stack-lg">
-        {phase === 'select-type' && (
-          <ScriptTypeSelector iconMap={ICON_MAP} onSelect={handleTypeSelect} />
-        )}
+        <main className="section stack-lg">
+          {phase === 'select-type' && (
+            <ScriptTypeSelector iconMap={ICON_MAP} onSelect={handleTypeSelect} />
+          )}
 
-        {phase === 'select-context' && (
-          <ScriptContextSelector
-            onBack={() => setPhase('select-type')}
-            onSelect={handleContextSelect}
-          />
-        )}
-
-        {phase === 'loading' && (
-          <AiStatus
-            error={error}
-            loading
-            loadingClassName={styles.loadingState}
-            skeletonClassName={styles.loadingSkeleton}
-            skeletonHeight={100}
-          />
-        )}
-
-        {phase === 'response' && (
-          <>
-            <AiStatus error={error} />
-            <ScriptResponse
-              actionError={actionError}
-              copied={copied}
-              scriptContent={scriptContent}
-              selectedContext={selectedContext}
-              selectedType={selectedType}
-              onCopy={handleCopy}
-              onDone={handleDone}
-              onRegenerate={handleRegenerate}
-              onSpeak={speak}
+          {phase === 'select-context' && (
+            <ScriptContextSelector
+              onBack={() => setPhase('select-type')}
+              onSelect={handleContextSelect}
             />
-          </>
-        )}
-      </main>
-    </div>
+          )}
+
+          {phase === 'loading' && (
+            <AiStatus
+              error={error}
+              loading
+              loadingClassName={styles.loadingState}
+              skeletonClassName={styles.loadingSkeleton}
+              skeletonHeight={100}
+            />
+          )}
+
+          {phase === 'response' && (
+            <>
+              <AiStatus error={error} />
+              <ScriptResponse
+                actionError={actionError}
+                copied={copied}
+                scriptContent={scriptContent}
+                selectedContext={selectedContext}
+                selectedType={selectedType}
+                onCopy={handleCopy}
+                onDone={handleDone}
+                onRegenerate={handleRegenerate}
+                onSpeak={speak}
+              />
+            </>
+          )}
+        </main>
+      </div>
     </ErrorBoundary>
   );
 }

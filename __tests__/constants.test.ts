@@ -1,4 +1,5 @@
-import { buildCrisisPrompt, buildScriptPrompt, CRISIS_HOTLINE, EMERGENCY_NUMBER } from '../utils/constants';
+import { CRISIS_HOTLINE, EMERGENCY_NUMBER } from '../utils/constants';
+import { buildCrisisPrompt, buildScriptPrompt } from '../utils/prompts';
 
 describe('Constants and Utilities', () => {
   it('should format a crisis prompt correctly', () => {

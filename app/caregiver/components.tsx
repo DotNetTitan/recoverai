@@ -1,7 +1,7 @@
 'use client';
 import { BookOpen, HeartHandshake, MessageCircle, Share, ShieldAlert, Volume2 } from 'lucide-react';
-import { CAREGIVER_ARTICLES } from '@/utils/constants';
 import { AiStatus } from '@/components/AiStatus';
+import { CAREGIVER_ARTICLES } from '@/utils/constants';
 import styles from './page.module.css';
 
 interface CaregiverHubProps {
@@ -105,7 +105,7 @@ export function CaregiverHub({ iconMap, shareError, onOpenGuidance, onShare }: C
 
       <div className={`card ${styles.shareCard}`}>
         <Share size={32} color="var(--color-gold)" className={styles.shareIcon} />
-        <h3 className={styles.shareTitle}>Share RecoverAI</h3>
+        <h2 className={styles.shareTitle}>Share RecoverAI</h2>
         <p className={styles.mutedText}>
           Send this app to your loved one so they have support when they need it most.
         </p>
