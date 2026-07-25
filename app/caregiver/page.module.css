@@ -55,28 +55,7 @@
   transform: scale(0.97);
 }
 
-/* Accent bars for feature cards */
-.featureCard:first-of-type::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: #f59e0b;
-  border-radius: var(--radius-card) 0 0 var(--radius-card);
-}
 
-.featureCard:nth-of-type(2)::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: var(--color-crisis-red);
-  border-radius: var(--radius-card) 0 0 var(--radius-card);
-}
 
 .clickableCard {
   cursor: pointer;
