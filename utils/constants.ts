@@ -96,16 +96,16 @@ export const UI_TIMING = {
 } as const;
 
 export const AI_CONFIG = {
-  DEFAULT_MAX_TOKENS: 300,
-  CRISIS_MAX_TOKENS: 150,
-  EDUCATION_MAX_TOKENS: 200,
-  CAREGIVER_MAX_TOKENS: 200,
-  SCRIPT_MAX_TOKENS: 250,
+  DEFAULT_MAX_TOKENS: 2048,
+  CRISIS_MAX_TOKENS: 2048,
+  EDUCATION_MAX_TOKENS: 3072,
+  CAREGIVER_MAX_TOKENS: 2048,
+  SCRIPT_MAX_TOKENS: 1536,
   CACHE_SIZE_LIMIT: 50,
   GEMINI_TEMPERATURE: 0.7,
   API_ROUTE: '/api/gemini',
   GEMINI_API_URL:
-    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent',
 } as const;
 
 export const AI_FALLBACK_MESSAGE =

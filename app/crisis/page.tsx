@@ -41,11 +41,6 @@ export default function CrisisPage() {
   const [responseText, setResponseText] = useState('');
 
   useEffect(() => {
-    if (responseText) speak(responseText);
-    return () => stopSpeaking();
-  }, [responseText, speak, stopSpeaking]);
-
-  useEffect(() => {
     if (transcript && !listening) handleSubmit(transcript);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transcript, listening]);

@@ -66,7 +66,7 @@ describe('Emergency Scripts', () => {
     });
 
     expect(mockCallGemini).toHaveBeenCalledWith(
-      expect.objectContaining({ maxTokens: 250 })
+      expect.objectContaining({ maxTokens: 1536 })
     );
   });
 

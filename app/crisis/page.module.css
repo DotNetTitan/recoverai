@@ -158,3 +158,21 @@
     padding: 20px 24px 0;
   }
 }
+
+/* ── Typing animation cursor ──── */
+.typingCursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  color: var(--color-mint-tint);
+  font-weight: 600;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}

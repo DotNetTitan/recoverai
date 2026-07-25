@@ -32,17 +32,34 @@ export async function POST(req: NextRequest) {
     );
 
     if (!res.ok) {
-      console.error('Gemini API error:', res.status);
+      const errorText = await res.text();
+      console.error('Gemini API error:', res.status, errorText);
+      
+      // Specific message for rate limiting
+      if (res.status === 429) {
+        return NextResponse.json({ 
+          text: "The AI service is temporarily busy. Please wait a moment and try again." 
+        }, { status: 200 });
+      }
+      
       return NextResponse.json({ text: AI_FALLBACK_MESSAGE }, { status: 200 });
     }
 
     const data = await res.json();
+    
+    // Log finish reason for debugging
+    const finishReason = data.candidates?.[0]?.finishReason;
+    if (finishReason === 'MAX_TOKENS') {
+      console.warn('[gemini] Response cut off due to MAX_TOKENS. Consider increasing maxTokens.');
+    }
+    
     const text =
       data.candidates?.[0]?.content?.parts?.[0]?.text ?? AI_FALLBACK_MESSAGE;
 
     return NextResponse.json({ text });
   } catch (err) {
-    console.error('Gemini route handler error:', err);
+    console.error('Gemini route handler error:', err instanceof Error ? err.message : err);
+    console.error('Full error:', err);
     return NextResponse.json({ text: AI_FALLBACK_MESSAGE }, { status: 200 });
   }
 }

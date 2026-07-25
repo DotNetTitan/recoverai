@@ -1,5 +1,6 @@
 'use client';
 import { ArrowLeft, Mic, MicOff, Phone, PhoneCall, Volume2 } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import {
   CRISIS_HOTLINE_LABEL,
   CRISIS_HOTLINE_TEL,
@@ -84,15 +85,42 @@ export function CrisisSelect({
 }
 
 export function CrisisResponse({ responseText, onReset, onSpeak }: CrisisResponseProps) {
+  const [displayedText, setDisplayedText] = useState('');
+  const [isTyping, setIsTyping] = useState(true);
+
+  useEffect(() => {
+    setDisplayedText('');
+    setIsTyping(true);
+    let currentIndex = 0;
+    
+    const typingInterval = setInterval(() => {
+      if (currentIndex < responseText.length) {
+        setDisplayedText(responseText.slice(0, currentIndex + 1));
+        currentIndex++;
+      } else {
+        setIsTyping(false);
+        clearInterval(typingInterval);
+        // Auto-speak after typing completes (crisis mode feature)
+        onSpeak(responseText);
+      }
+    }, 20); // 20ms per character for smooth typing
+
+    return () => clearInterval(typingInterval);
+  }, [responseText, onSpeak]);
+
   return (
     <div aria-live="polite">
       <h1 className={`${styles.prompt} ${styles.responseTitle}`}>Here for you</h1>
       <div className={styles.responseCard}>
-        <p className={styles.responseText}>{responseText}</p>
+        <p className={styles.responseText}>
+          {displayedText}
+          {isTyping && <span className={styles.typingCursor}>|</span>}
+        </p>
         <button
           className={`btn btn-ghost ${styles.readButton}`}
           onClick={() => onSpeak(responseText)}
           aria-label="Read response aloud"
+          disabled={isTyping}
         >
           <Volume2 size={18} /> Read aloud
         </button>
