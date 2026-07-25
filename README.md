@@ -1,6 +1,6 @@
 # RecoverAI
 
-<img src="/logo.png" width="300" alt="RecoverAI Logo" />
+<img src="public/logo.png" width="300" alt="RecoverAI Logo" />
 
 **RecoverAI** is a multi-modal, AI-powered platform designed to provide immediate, zero-typing support for individuals navigating substance use disorders (SUD) and their caregivers.
 
