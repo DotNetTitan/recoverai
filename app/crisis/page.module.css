@@ -131,7 +131,7 @@
 }
 
 .emergencyButton {
-  background: var(--color-calm-blue);
+  background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
 }
 
 .contactButton {
