@@ -15,7 +15,7 @@ import {
   getTriggerLog,
   getSafetyPlan,
   saveSafetyPlan,
-  addTriggerEntry as storagAddEntry,
+  addTriggerEntry as storeTriggerEntry,
 } from '@/utils/storage';
 
 interface AppContextValue extends AppState {
@@ -49,7 +49,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const addTriggerEntry = useCallback((entry: TriggerEntry) => {
-    storagAddEntry(entry);
+    storeTriggerEntry(entry);
     setTriggerLog((prev) => [entry, ...prev]);
   }, []);
 

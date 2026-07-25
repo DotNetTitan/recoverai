@@ -1,0 +1,10 @@
+.fallback {
+  padding: 32px;
+  text-align: center;
+  color: var(--color-soft-stone);
+}
+
+.fallbackSupport {
+  font-size: var(--font-small);
+  margin-top: 8px;
+}

@@ -80,6 +80,119 @@ export const OUTCOME_OPTIONS = [
   'Left the situation',
 ] as const;
 
+export const APP_ROUTES = {
+  HOME: '/',
+  ONBOARDING: '/onboarding',
+  SETTINGS: '/settings',
+  CRISIS: '/crisis',
+  SCRIPTS: '/scripts',
+  EDUCATION: '/education',
+  SAFETY: '/safety',
+  CAREGIVER: '/caregiver',
+} as const;
+
+export const UI_TIMING = {
+  COPY_FEEDBACK_MS: 2000,
+} as const;
+
+export const AI_CONFIG = {
+  DEFAULT_MAX_TOKENS: 300,
+  CRISIS_MAX_TOKENS: 150,
+  EDUCATION_MAX_TOKENS: 200,
+  CAREGIVER_MAX_TOKENS: 200,
+  SCRIPT_MAX_TOKENS: 250,
+  CACHE_SIZE_LIMIT: 50,
+  GEMINI_TEMPERATURE: 0.7,
+  API_ROUTE: '/api/gemini',
+  GEMINI_API_URL:
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
+} as const;
+
+export const AI_FALLBACK_MESSAGE =
+  "I'm here for you. Please call 14416 (Tele-MANAS) if you need immediate help.";
+
+export const AI_ERROR_MESSAGE = 'Could not reach AI. Please try again.';
+
+export const AI_STATUS_MESSAGES = {
+  LOADING: 'Creating supportive guidance...',
+  ERROR: AI_ERROR_MESSAGE,
+} as const;
+
+export const HOME_NAV_CARDS = [
+  { href: APP_ROUTES.SCRIPTS, icon: 'FileText', label: 'Emergency Scripts', desc: 'AI-generated scripts for tough moments' },
+  { href: APP_ROUTES.EDUCATION, icon: 'BookOpen', label: 'Learn', desc: 'Understand recovery & addiction' },
+  { href: APP_ROUTES.SAFETY, icon: 'Shield', label: 'Safety Tools', desc: 'Track triggers & build your plan' },
+  { href: APP_ROUTES.CAREGIVER, icon: 'Heart', label: 'Caregiver', desc: 'Support for those who care' },
+] as const;
+
+export const AFFIRMATIONS = [
+  'Every moment of resistance is a victory.',
+  'You have survived 100% of your hardest days.',
+  "Recovery is not a straight line - and that's okay.",
+  'You are stronger than the urge.',
+  'One moment at a time.',
+] as const;
+
+export const EDUCATION_CATEGORIES = [
+  { id: 'understanding', title: 'Understanding Addiction', icon: 'Brain', articles: ['What is SUD?', 'Brain Science', 'Common Myths'] },
+  { id: 'stages', title: 'Recovery Stages', icon: 'ShieldAlert', articles: ['Early Recovery', 'Maintenance', 'What to Expect'] },
+  { id: 'caregiver', title: 'Supporting a Loved One', icon: 'HeartHandshake', articles: ['Setting Boundaries', 'Self-Care', 'Avoiding Enabling'] },
+  { id: 'meds', title: 'Treatment Options', icon: 'Pill', articles: ['Types of Treatment', 'MAT Overview'] },
+  { id: 'resources', title: 'Local Resources', icon: 'Phone', articles: ['Hotlines', 'Support Groups'] },
+] as const;
+
+export const CAREGIVER_ARTICLES = [
+  { id: 'relapse-talk', title: 'How to talk about a relapse', icon: 'HeartHandshake' },
+  { id: 'boundaries', title: 'Setting healthy boundaries', icon: 'ShieldAlert' },
+  { id: 'understanding', title: 'Understanding what they are going through', icon: 'BookOpen' },
+] as const;
+
+export const CAREGIVER_SYSTEM_PROMPT =
+  'You are a compassionate guide for a caregiver supporting someone with substance use disorder. Keep your response warm, practical, and under 150 words. Never give medical advice.';
+
+export const ONBOARDING_TOTAL_STEPS = 4;
+
+export const ONBOARDING_STEP_PROMPTS = [
+  "What's your first name?",
+  'What brings you here today?',
+  'Which substances are you concerned about?',
+  'Add an emergency contact.',
+] as const;
+
+export const ONBOARDING_ROLE_OPTIONS = [
+  { value: 'recovery', label: "I'm in recovery", desc: 'Managing my own substance use', icon: 'Sprout' },
+  { value: 'caregiver', label: "I'm a caregiver", desc: 'Supporting someone I love', icon: 'Heart' },
+] as const;
+
+export const BREATHING_EXERCISE_STEPS = [
+  'Inhale (4s)',
+  'Hold (4s)',
+  'Exhale (4s)',
+  'Hold (4s)',
+] as const;
+
+export const GROUNDING_SENSE_STEPS = [
+  { count: '5', text: 'things you can see' },
+  { count: '4', text: 'things you can feel' },
+  { count: '3', text: 'things you can hear' },
+  { count: '2', text: 'things you can smell' },
+  { count: '1', text: 'thing you can taste' },
+] as const;
+
+export const INPUT_LIMITS = {
+  FIRST_NAME_MAX_LENGTH: 50,
+  CONTACT_NAME_MAX_LENGTH: 60,
+} as const;
+
+export const SETTINGS_COPY = {
+  RESET_CONFIRM: 'Are you sure you want to reset all your data? This cannot be undone.',
+  VERSION_LABEL: 'RecoverAI v1.0.0',
+} as const;
+
+export function toggleSelectedItem<T>(list: T[], item: T): T[] {
+  return list.includes(item) ? list.filter((value) => value !== item) : [...list, item];
+}
+
 // Gemini prompt builders
 export const buildCrisisPrompt = (
   name: string,

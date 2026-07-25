@@ -1,25 +1,15 @@
 'use client';
-// app/crisis/page.tsx — Crisis Mode: zero-typing intervention
-import { useState, useEffect } from 'react';
+// app/crisis/page.tsx - Crisis Mode: zero-typing intervention
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import {
-  Mic,
-  MicOff,
-  PhoneCall,
-  Phone,
-  ArrowLeft,
-  AlertCircle,
-  Flame,
-  Wind,
-  Users,
-  Leaf,
-  Volume2,
-} from 'lucide-react';
-import { useProfile } from '@/hooks/useProfile';
-import { useGemini } from '@/hooks/useGemini';
-import { useSpeech } from '@/hooks/useSpeech';
-import { buildCrisisPrompt, EMERGENCY_TEL, CRISIS_HOTLINE_TEL, CRISIS_OPTIONS } from '@/utils/constants';
+import { AlertCircle, ArrowLeft, Flame, Leaf, Users, Wind } from 'lucide-react';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { AiStatus } from '@/components/AiStatus';
+import { useGemini } from '@/hooks/useGemini';
+import { useProfile } from '@/hooks/useProfile';
+import { useSpeech } from '@/hooks/useSpeech';
+import { AI_CONFIG, APP_ROUTES, buildCrisisPrompt } from '@/utils/constants';
+import { CrisisResponse, CrisisSelect, EmergencyActions } from './components';
 import styles from './page.module.css';
 
 const CRISIS_ICONS: Record<string, React.ElementType> = {
@@ -34,20 +24,26 @@ type Phase = 'select' | 'loading' | 'response';
 
 export default function CrisisPage() {
   const { profile } = useProfile();
-  const { callGemini } = useGemini();
-  const { speak, stopSpeaking, transcript, listening, startListening, stopListening, supported } = useSpeech();
+  const { callGemini, error } = useGemini();
+  const {
+    listening,
+    speak,
+    startListening,
+    stopListening,
+    stopSpeaking,
+    supported,
+    transcript,
+  } = useSpeech();
   const router = useRouter();
 
   const [phase, setPhase] = useState<Phase>('select');
   const [responseText, setResponseText] = useState('');
 
-  // Auto-speak AI response
   useEffect(() => {
     if (responseText) speak(responseText);
     return () => stopSpeaking();
   }, [responseText, speak, stopSpeaking]);
 
-  // Submit voice transcript automatically when listening stops
   useEffect(() => {
     if (transcript && !listening) handleSubmit(transcript);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,7 +59,11 @@ export default function CrisisPage() {
       profile?.emergencyContactName ?? 'your emergency contact'
     );
 
-    const text = await callGemini({ systemPrompt, userMessage, maxTokens: 150 });
+    const text = await callGemini({
+      systemPrompt,
+      userMessage,
+      maxTokens: AI_CONFIG.CRISIS_MAX_TOKENS,
+    });
     setResponseText(text);
     setPhase('response');
   }
@@ -80,135 +80,56 @@ export default function CrisisPage() {
 
   return (
     <ErrorBoundary label="Crisis Mode">
-    <div className={styles.page}>
-      {/* Top bar */}
-      <div className={styles.topBar}>
-        <button
-          className="btn btn-ghost"
-          onClick={() => { stopSpeaking(); router.push('/'); }}
-          aria-label="Go back to home"
-        >
-          <ArrowLeft size={20} /> Back
-        </button>
-        <span className={styles.topTitle}>Crisis Support</span>
-      </div>
-
-      <main className={styles.main}>
-        {/* ── Phase: Select ─────────────────────────────── */}
-        {phase === 'select' && (
-          <>
-            <h1 className={styles.prompt}>What&apos;s happening right now?</h1>
-            <p className={styles.subPrompt}>Tap a card or use your voice</p>
-
-            <div className={styles.optionsStack}>
-              {CRISIS_OPTIONS.map(({ id, label }) => {
-                const Icon = CRISIS_ICONS[id];
-                return (
-                  <button
-                    key={id}
-                    className="card-crisis"
-                    onClick={() => handleSubmit(label)}
-                    aria-label={label}
-                    id={'crisis-option-' + id}
-                  >
-                    {Icon && <Icon size={28} color="var(--color-mint-tint)" aria-hidden="true" />}
-                    <span className={styles.optionLabel}>{label}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Voice input */}
-            {supported ? (
-              <button
-                className={`btn ${listening ? 'btn-crisis' : 'btn-outline'} btn-full`}
-                style={{ marginTop: 16 }}
-                onClick={listening ? stopListening : startListening}
-                aria-label={listening ? 'Stop listening' : 'Speak your situation'}
-                id="voice-btn"
-              >
-                {listening ? (
-                  <><MicOff size={20} /> Listening… tap to stop</>
-                ) : (
-                  <><Mic size={20} /> Speak instead</>
-                )}
-              </button>
-            ) : (
-              <p className={styles.noVoice}>Voice input not available in this browser. Use Chrome or Edge.</p>
-            )}
-          </>
-        )}
-
-        {/* ── Phase: Loading ─────────────────────────────── */}
-        {phase === 'loading' && (
-          <div className={styles.loadingState} aria-live="polite" aria-busy="true">
-            <div className={styles.loadingSkeleton}>
-              <div className="skeleton" style={{ height: 120, width: '100%' }} />
-              <div className="skeleton" style={{ height: 20, width: '60%', margin: '0 auto' }} />
-            </div>
-          </div>
-        )}
-
-        {/* ── Phase: Response ─────────────────────────────── */}
-        {phase === 'response' && (
-          <div aria-live="polite">
-            <h1 className={styles.prompt} style={{ fontSize: 'var(--font-h2)' }}>Here for you</h1>
-            <div className={styles.responseCard}>
-              <p className={styles.responseText}>{responseText}</p>
-              <button
-                className="btn btn-ghost"
-                onClick={() => speak(responseText)}
-                aria-label="Read response aloud"
-                style={{ marginTop: 12 }}
-              >
-                <Volume2 size={18} /> Read aloud
-              </button>
-            </div>
-            <button
-              className="btn btn-outline btn-full"
-              style={{ marginTop: 16 }}
-              onClick={reset}
-              aria-label="Go back to options"
-            >
-              <ArrowLeft size={20} /> Try a different option
-            </button>
-          </div>
-        )}
-      </main>
-
-      {/* Pinned emergency buttons — always visible */}
-      <div className="pinned-bottom">
-        <a
-          href={EMERGENCY_TEL}
-          className="btn btn-crisis"
-          style={{ flex: 1, background: 'var(--color-calm-blue)' }}
-          aria-label="Dial 112 for emergency services in India"
-          id="call-112-btn"
-        >
-          <PhoneCall size={20} /> 112 Emergency
-        </a>
-        <a
-          href={CRISIS_HOTLINE_TEL}
-          className="btn btn-outline"
-          style={{ flex: 1 }}
-          aria-label="Call 14416 Tele-MANAS mental health helpline"
-          id="call-14416-btn"
-        >
-          <PhoneCall size={20} /> 14416 (Tele-MANAS)
-        </a>
-        {contactTel && (
-          <a
-            href={contactTel}
+      <div className={styles.page}>
+        <div className={styles.topBar}>
+          <button
             className="btn btn-ghost"
-            style={{ flex: 1, fontSize: 14 }}
-            aria-label={`Call ${profile?.emergencyContactName ?? 'your contact'}`}
-            id="call-contact-btn"
+            onClick={() => {
+              stopSpeaking();
+              router.push(APP_ROUTES.HOME);
+            }}
+            aria-label="Go back to home"
           >
-            <Phone size={18} /> {profile?.emergencyContactName ?? 'Contact'}
-          </a>
-        )}
+            <ArrowLeft size={20} /> Back
+          </button>
+          <span className={styles.topTitle}>Crisis Support</span>
+        </div>
+
+        <main className={styles.main}>
+          {phase === 'select' && (
+            <CrisisSelect
+              iconMap={CRISIS_ICONS}
+              listening={listening}
+              supported={supported}
+              onSelect={handleSubmit}
+              onStartListening={startListening}
+              onStopListening={stopListening}
+            />
+          )}
+
+          {phase === 'loading' && (
+            <AiStatus
+              error={error}
+              loading
+              loadingClassName={styles.loadingState}
+              skeletonClassName={styles.loadingSkeleton}
+              skeletonHeight={120}
+            />
+          )}
+
+          {phase === 'response' && (
+            <>
+              <AiStatus error={error} />
+              <CrisisResponse responseText={responseText} onReset={reset} onSpeak={speak} />
+            </>
+          )}
+        </main>
+
+        <EmergencyActions
+          contactName={profile?.emergencyContactName}
+          contactTel={contactTel}
+        />
       </div>
-    </div>
     </ErrorBoundary>
   );
 }

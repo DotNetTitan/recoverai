@@ -1,5 +1,7 @@
 'use client';
 import { Component, ReactNode } from 'react';
+import { CRISIS_HOTLINE, EMERGENCY_NUMBER } from '@/utils/constants';
+import styles from './ErrorBoundary.module.css';
 
 interface Props {
   children: ReactNode;
@@ -25,10 +27,10 @@ export class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         this.props.fallback ?? (
-          <div style={{ padding: 32, textAlign: 'center', color: 'var(--color-soft-stone)' }}>
+          <div className={styles.fallback}>
             <p>Something went wrong. Please go back and try again.</p>
-            <p style={{ fontSize: 14, marginTop: 8 }}>
-              If you need immediate help, call <strong>14416</strong> (Tele-MANAS) or dial <strong>112</strong>.
+            <p className={styles.fallbackSupport}>
+              If you need immediate help, call <strong>{CRISIS_HOTLINE}</strong> (Tele-MANAS) or dial <strong>{EMERGENCY_NUMBER}</strong>.
             </p>
           </div>
         )

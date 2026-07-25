@@ -16,3 +16,88 @@
   color: var(--color-warm-white);
   margin-bottom: 12px;
 }
+
+.mutedText {
+  color: var(--color-soft-stone);
+  font-size: var(--font-small);
+}
+
+.guidanceInput {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.guidanceText {
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.featureCard {
+  background: var(--color-calm-blue);
+  color: white;
+  border-color: transparent;
+  text-align: left;
+  width: 100%;
+}
+
+.clickableCard {
+  cursor: pointer;
+}
+
+.featureHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.featureTitle {
+  font-size: var(--font-h2);
+}
+
+.featureText {
+  font-size: var(--font-small);
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+
+.featureButton {
+  background: white;
+  color: var(--color-calm-blue);
+  width: 100%;
+}
+
+.articleButton {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+}
+
+.articleIcon {
+  padding: 8px;
+  background: rgba(230, 242, 240, 0.1);
+  border-radius: 8px;
+}
+
+.articleTitle {
+  font-weight: 600;
+  font-size: var(--font-small);
+}
+
+.shareCard {
+  text-align: center;
+  padding: 24px;
+  margin-top: 12px;
+}
+
+.shareIcon {
+  margin: 0 auto 12px;
+}
+
+.shareTitle {
+  margin-bottom: 8px;
+}

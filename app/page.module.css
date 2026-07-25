@@ -60,6 +60,17 @@
   line-height: var(--lh-small);
 }
 
+.affirmationText {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.affirmationIcon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
 .crisisSection {
   padding: 20px;
 }
@@ -113,6 +124,11 @@
 
 .groundingSection {
   padding: 12px 20px 0;
+}
+
+.groundingCard {
+  display: block;
+  text-decoration: none;
 }
 
 .groundingInner {

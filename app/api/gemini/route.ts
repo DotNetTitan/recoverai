@@ -1,23 +1,18 @@
 // app/api/gemini/route.ts — Server-side Route Handler (API key never reaches the browser)
 import { NextRequest, NextResponse } from 'next/server';
-
-const GEMINI_API_URL =
-  'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
-
-const FALLBACK =
-  "I'm here for you. Please call 14416 (Tele-MANAS) if you need immediate help.";
+import { AI_CONFIG, AI_FALLBACK_MESSAGE } from '@/utils/constants';
 
 export async function POST(req: NextRequest) {
   try {
-    const { systemPrompt, userMessage, maxTokens = 300 } = await req.json();
+    const { systemPrompt, userMessage, maxTokens = AI_CONFIG.DEFAULT_MAX_TOKENS } = await req.json();
 
     if (!process.env.GEMINI_API_KEY) {
       console.error('GEMINI_API_KEY is not set');
-      return NextResponse.json({ text: FALLBACK }, { status: 200 });
+      return NextResponse.json({ text: AI_FALLBACK_MESSAGE }, { status: 200 });
     }
 
     const res = await fetch(
-      `${GEMINI_API_URL}?key=${process.env.GEMINI_API_KEY}`,
+      `${AI_CONFIG.GEMINI_API_URL}?key=${process.env.GEMINI_API_KEY}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -30,7 +25,7 @@ export async function POST(req: NextRequest) {
           ],
           generationConfig: {
             maxOutputTokens: maxTokens,
-            temperature: 0.7,
+            temperature: AI_CONFIG.GEMINI_TEMPERATURE,
           },
         }),
       }
@@ -38,16 +33,16 @@ export async function POST(req: NextRequest) {
 
     if (!res.ok) {
       console.error('Gemini API error:', res.status);
-      return NextResponse.json({ text: FALLBACK }, { status: 200 });
+      return NextResponse.json({ text: AI_FALLBACK_MESSAGE }, { status: 200 });
     }
 
     const data = await res.json();
     const text =
-      data.candidates?.[0]?.content?.parts?.[0]?.text ?? FALLBACK;
+      data.candidates?.[0]?.content?.parts?.[0]?.text ?? AI_FALLBACK_MESSAGE;
 
     return NextResponse.json({ text });
   } catch (err) {
     console.error('Gemini route handler error:', err);
-    return NextResponse.json({ text: FALLBACK }, { status: 200 });
+    return NextResponse.json({ text: AI_FALLBACK_MESSAGE }, { status: 200 });
   }
 }

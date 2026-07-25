@@ -82,6 +82,11 @@
   animation: boxBreathe 16s infinite linear;
 }
 
+.breathingButton {
+  position: relative;
+  z-index: 10;
+}
+
 @keyframes boxBreathe {
   0% { transform: translate(-50%, -50%) scale(1); }
   25% { transform: translate(-50%, -50%) scale(1.8); } /* Inhale 4s */
@@ -96,6 +101,21 @@
   color: var(--color-mint-tint);
   font-weight: 500;
   z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.breathingStep {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.groundingTitle {
+  margin-top: 24px;
 }
 
 .groundingList {
@@ -123,4 +143,77 @@
   background: rgba(230, 242, 240, 0.1);
   border-radius: 50%;
   color: var(--color-mint-tint);
+}
+
+.logSummary {
+  text-align: center;
+  padding: 16px 12px;
+}
+
+.logCount {
+  font-size: var(--font-h2);
+  font-weight: 700;
+  color: var(--color-warm-white);
+}
+
+.logLabel,
+.emptyLog,
+.planText {
+  font-size: var(--font-small);
+  color: var(--color-soft-stone);
+}
+
+.logButton {
+  padding: 16px 12px;
+}
+
+.recentLogsTitle {
+  margin-top: 16px;
+}
+
+.emptyLog {
+  text-align: center;
+  padding: 20px;
+}
+
+.logEntry {
+  padding: 16px;
+}
+
+.logEntryHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.logDate {
+  font-weight: 700;
+}
+
+.moodChip {
+  min-height: 24px;
+  padding: 2px 8px;
+  font-size: 12px;
+}
+
+.logText {
+  font-size: var(--font-small);
+}
+
+.planCard {
+  text-align: center;
+  padding: 32px;
+}
+
+.planIcon {
+  margin: 0 auto 16px;
+}
+
+.planTitle {
+  margin-bottom: 8px;
+  color: var(--color-warm-white);
+}
+
+.planText {
+  margin-bottom: 20px;
 }

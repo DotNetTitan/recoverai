@@ -70,6 +70,10 @@
   border-radius: var(--radius-btn);
 }
 
+.voiceButton {
+  margin-top: 16px;
+}
+
 /* ── Loading state (skeleton) ─── */
 .loadingState {
   display: flex;
@@ -102,6 +106,31 @@
   font-size: var(--font-body);
   line-height: var(--lh-body);
   color: var(--color-warm-white);
+}
+
+.responseTitle {
+  font-size: var(--font-h2);
+}
+
+.readButton {
+  margin-top: 12px;
+}
+
+.resetButton {
+  margin-top: 16px;
+}
+
+.emergencyButton,
+.contactButton {
+  flex: 1;
+}
+
+.emergencyButton {
+  background: var(--color-calm-blue);
+}
+
+.contactButton {
+  font-size: var(--font-small);
 }
 
 /* ── Landscape ────────────────── */

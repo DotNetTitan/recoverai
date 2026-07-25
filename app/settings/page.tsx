@@ -1,71 +1,69 @@
 'use client';
-// app/settings/page.tsx — Settings Page
+// app/settings/page.tsx - Settings Page
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, User, Bell, Shield, LogOut, ChevronRight } from 'lucide-react';
-import { useProfile } from '@/hooks/useProfile';
+import { ArrowLeft, Bell, ChevronRight, LogOut, Shield, User } from 'lucide-react';
 import { STORAGE_KEYS } from '@/context/types';
+import { useProfile } from '@/hooks/useProfile';
+import { APP_ROUTES, SETTINGS_COPY } from '@/utils/constants';
+import styles from './page.module.css';
 
 export default function SettingsPage() {
   const router = useRouter();
   const { profile } = useProfile();
 
   function handleReset() {
-    if (confirm('Are you sure you want to reset all your data? This cannot be undone.')) {
+    if (confirm(SETTINGS_COPY.RESET_CONFIRM)) {
       localStorage.removeItem(STORAGE_KEYS.PROFILE);
       localStorage.removeItem(STORAGE_KEYS.TRIGGER_LOG);
       localStorage.removeItem(STORAGE_KEYS.SAFETY_PLAN);
-      window.location.href = '/onboarding';
+      window.location.href = APP_ROUTES.ONBOARDING;
     }
   }
 
   return (
-    <div className="page" style={{ paddingBottom: 40 }}>
+    <div className={`page ${styles.page}`}>
       <header className="page-header">
-        <button className="btn btn-ghost" onClick={() => router.push('/')}>
+        <button className="btn btn-ghost" onClick={() => router.push(APP_ROUTES.HOME)}>
           <ArrowLeft size={20} /> Back
         </button>
-        <h1 style={{ fontSize: 'var(--font-h2)' }}>Settings</h1>
+        <h1>Settings</h1>
       </header>
 
-      <main className="section stack-lg" style={{ flex: 1, marginTop: 12 }}>
-        
+      <main className="section stack-lg">
         <div className="card">
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20 }}>
-            <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'var(--color-mint-tint)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className={styles.profileHeader}>
+            <div className={styles.avatar}>
               <User size={32} color="var(--color-forest-green)" />
             </div>
             <div>
-              <h2 style={{ fontSize: 20, color: 'var(--color-warm-white)' }}>{profile?.name}</h2>
-              <p style={{ color: 'var(--color-soft-stone)', textTransform: 'capitalize' }}>{profile?.role}</p>
+              <h2 className={styles.profileName}>{profile?.name}</h2>
+              <p className={styles.profileRole}>{profile?.role}</p>
             </div>
           </div>
-          <button className="btn btn-outline btn-full" onClick={() => router.push('/onboarding')}>
+          <button className="btn btn-outline btn-full" onClick={() => router.push(APP_ROUTES.ONBOARDING)}>
             Edit Profile
           </button>
         </div>
 
         <div className="stack">
-           <button className="card" style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 16, width: '100%', border: 'none' }}>
-             <Bell size={20} color="var(--color-mint-tint)" />
-             <span style={{ flex: 1, textAlign: 'left', fontWeight: 600 }}>Notifications</span>
-             <ChevronRight size={20} color="var(--color-soft-stone)" />
-           </button>
-           <button className="card" style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 16, width: '100%', border: 'none' }}>
-             <Shield size={20} color="var(--color-mint-tint)" />
-             <span style={{ flex: 1, textAlign: 'left', fontWeight: 600 }}>Privacy & Data</span>
-             <ChevronRight size={20} color="var(--color-soft-stone)" />
-           </button>
+          <button className={`card ${styles.settingsButton}`}>
+            <Bell size={20} color="var(--color-mint-tint)" />
+            <span className={styles.settingsLabel}>Notifications</span>
+            <ChevronRight size={20} color="var(--color-soft-stone)" />
+          </button>
+          <button className={`card ${styles.settingsButton}`}>
+            <Shield size={20} color="var(--color-mint-tint)" />
+            <span className={styles.settingsLabel}>Privacy & Data</span>
+            <ChevronRight size={20} color="var(--color-soft-stone)" />
+          </button>
         </div>
 
-        <div style={{ marginTop: 'auto', paddingTop: 40 }}>
-           <button className="btn btn-ghost btn-full" style={{ color: 'var(--color-crisis-red)' }} onClick={handleReset}>
-             <LogOut size={20} /> Reset App Data
-           </button>
-           <p style={{ textAlign: 'center', fontSize: 13, color: 'var(--color-soft-stone)', marginTop: 16 }}>
-             RecoverAI v1.0.0
-           </p>
+        <div className={styles.footer}>
+          <button className={`btn btn-ghost btn-full ${styles.resetButton}`} onClick={handleReset}>
+            <LogOut size={20} /> Reset App Data
+          </button>
+          <p className={styles.version}>{SETTINGS_COPY.VERSION_LABEL}</p>
         </div>
-
       </main>
     </div>
   );

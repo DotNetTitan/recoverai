@@ -1,5 +1,6 @@
 'use client';
 import { useState, useCallback } from 'react';
+import { AI_CONFIG, AI_ERROR_MESSAGE, AI_FALLBACK_MESSAGE } from '@/utils/constants';
 
 interface GeminiParams {
   systemPrompt: string;
@@ -7,15 +8,11 @@ interface GeminiParams {
   maxTokens?: number;
 }
 
-const FALLBACK = "I'm here for you. Please call 14416 (Tele-MANAS) if you need immediate help.";
-
 const cache = new Map<string, string>();
 
 function cacheKey(systemPrompt: string, userMessage: string, maxTokens: number): string {
   return `${systemPrompt}||${userMessage}||${maxTokens}`;
 }
-
-const CACHE_SIZE_LIMIT = 50;
 
 /**
  * Hook that provides a `callGemini` function to interact with the `/api/gemini` route handler.
@@ -27,7 +24,7 @@ export function useGemini() {
   const [error, setError] = useState<string | null>(null);
 
   const callGemini = useCallback(
-    async ({ systemPrompt, userMessage, maxTokens = 300 }: GeminiParams): Promise<string> => {
+    async ({ systemPrompt, userMessage, maxTokens = AI_CONFIG.DEFAULT_MAX_TOKENS }: GeminiParams): Promise<string> => {
       const key = cacheKey(systemPrompt, userMessage, maxTokens);
       const cached = cache.get(key);
       if (cached !== undefined) return cached;
@@ -35,20 +32,20 @@ export function useGemini() {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch('/api/gemini', {
+        const res = await fetch(AI_CONFIG.API_ROUTE, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ systemPrompt, userMessage, maxTokens }),
         });
         const data = await res.json();
-        const text = data.text ?? FALLBACK;
-        if (cache.size >= CACHE_SIZE_LIMIT) cache.clear();
+        const text = data.text ?? AI_FALLBACK_MESSAGE;
+        if (cache.size >= AI_CONFIG.CACHE_SIZE_LIMIT) cache.clear();
         cache.set(key, text);
         return text;
       } catch (err) {
         console.error('useGemini error:', err);
-        setError('Could not reach AI. Please try again.');
-        return FALLBACK;
+        setError(AI_ERROR_MESSAGE);
+        return AI_FALLBACK_MESSAGE;
       } finally {
         setLoading(false);
       }
@@ -56,5 +53,7 @@ export function useGemini() {
     []
   );
 
-  return { callGemini, loading, error };
+  const resetError = useCallback(() => setError(null), []);
+
+  return { callGemini, loading, error, resetError };
 }

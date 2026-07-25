@@ -75,6 +75,12 @@
   background: var(--color-forest-green);
   border-color: var(--color-mint-tint) !important;
 }
+.roleHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
 .roleLabel {
   font-size: var(--font-h2);
   font-weight: 700;
@@ -97,6 +103,9 @@
   font-weight: 600;
   color: var(--color-soft-stone);
   margin-bottom: 8px;
+}
+.triggerGroupLabel {
+  margin-top: 20px;
 }
 .optionalTag {
   font-weight: 400;
