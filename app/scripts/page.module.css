@@ -56,13 +56,14 @@
 
 /* Script Card */
 .scriptCard {
-  background: rgba(45, 79, 72, 0.4);
+  background: rgba(45, 79, 72, 0.8);
   border: 1px solid rgba(209, 205, 199, 0.15);
   border-radius: var(--radius-card);
   padding: 24px 20px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .scriptHeader {

@@ -45,7 +45,7 @@ export default function EducationPage() {
     <ErrorBoundary label="Educational Resources">
       <div className={styles.page}>
         <header className="page-header">
-          <button className="btn btn-ghost" onClick={() => { stopSpeaking(); router.push(APP_ROUTES.HOME); }} aria-label="Go back to home">
+          <button className="btn btn-ghost page-header-back" onClick={() => { stopSpeaking(); router.push(APP_ROUTES.HOME); }} aria-label="Go back to home">
             <ArrowLeft size={20} /> Back
           </button>
           <h1>Learn</h1>

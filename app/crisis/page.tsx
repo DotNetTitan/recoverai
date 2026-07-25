@@ -88,7 +88,7 @@ export default function CrisisPage() {
           >
             <ArrowLeft size={20} /> Back
           </button>
-          <span className={styles.topTitle}>Crisis Support</span>
+          <h1 className={styles.topTitle}>Crisis Support</h1>
         </header>
 
         <main className={styles.main}>

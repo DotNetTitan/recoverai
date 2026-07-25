@@ -25,15 +25,23 @@
 }
 
 .greeting {
-  font-size: var(--font-small);
+  font-size: 14px;
+  font-weight: 400;
   color: var(--color-soft-stone);
   margin-bottom: 2px;
 }
 
 .name {
-  font-size: var(--font-h1);
+  font-size: clamp(26px, 5vw, 34px);
   font-weight: 800;
   color: var(--color-warm-white);
+  letter-spacing: -0.01em;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(230, 242, 240, 0.15), transparent);
+  margin: 20px 0;
 }
 
 .settingsBtn {
@@ -42,14 +50,19 @@
   justify-content: center;
   width: 44px;
   height: 44px;
-  border-radius: 50%;
-  background: rgba(230, 242, 240, 0.08);
-  color: var(--color-soft-stone);
+  border-radius: 12px;
+  background: rgba(230, 242, 240, 0.12);
+  color: var(--color-mint-tint);
   text-decoration: none;
   font-size: 20px;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, transform 0.15s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
-.settingsBtn:hover { background: rgba(230, 242, 240, 0.15); }
+.settingsBtn:hover { 
+  background: rgba(230, 242, 240, 0.2); 
+  transform: translateY(-1px);
+}
+.settingsBtn:active { transform: scale(0.97); }
 .settingsBtn:focus-visible {
   outline: 3px solid var(--color-gold);
   outline-offset: 3px;
@@ -59,25 +72,48 @@
 
 .affirmation {
   margin: 20px 20px 0;
-  padding: 14px 16px;
-  background: rgba(236, 201, 75, 0.1);
-  border: 1px solid rgba(236, 201, 75, 0.2);
+  padding: 16px 18px;
+  background: linear-gradient(135deg, rgba(236, 201, 75, 0.08), rgba(236, 201, 75, 0.04));
+  border: 2px solid;
+  border-image: linear-gradient(135deg, rgba(236, 201, 75, 0.6), rgba(236, 201, 75, 0.2)) 1;
   border-radius: var(--radius-card);
   color: var(--color-gold);
   font-size: var(--font-small);
   font-style: italic;
   line-height: var(--lh-small);
+  position: relative;
+  overflow: hidden;
+}
+
+.affirmation::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(236, 201, 75, 0.05) 50%, transparent 70%);
+  animation: shimmerAffirmation 3s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmerAffirmation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .affirmationText {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   align-items: flex-start;
+  position: relative;
+  z-index: 1;
 }
 
 .affirmationIcon {
   flex-shrink: 0;
   margin-top: 2px;
+  font-size: 18px;
 }
 
 .crisisSection {
@@ -111,9 +147,6 @@
   .navGrid {
     padding: 0 32px;
   }
-  .groundingSection {
-    padding: 16px 32px 0;
-  }
   .disclaimer {
     margin: 24px 32px 0;
   }
@@ -135,9 +168,28 @@
   padding: 12px 20px 0;
 }
 
+@media (min-width: 481px) {
+  .groundingSection {
+    padding: 16px 32px 0;
+  }
+}
+
 .groundingCard {
   display: block;
   text-decoration: none;
+  background: linear-gradient(135deg, rgba(45, 79, 72, 0.9), rgba(45, 79, 72, 0.7));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+}
+
+.groundingCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.groundingCard:active {
+  transform: scale(0.97);
 }
 
 .groundingInner {
@@ -160,8 +212,16 @@
 
 .groundingArrow {
   margin-left: auto;
-  color: var(--color-soft-stone);
+  color: var(--color-gold);
   font-size: 20px;
+  animation: nudgeRight 2s ease-in-out;
+  animation-delay: 0.5s;
+}
+
+@keyframes nudgeRight {
+  0%, 100% { transform: translateX(0); }
+  10%, 30% { transform: translateX(4px); }
+  20%, 40% { transform: translateX(0); }
 }
 
 .disclaimer {

@@ -60,7 +60,7 @@ export default function CaregiverPage() {
     <ErrorBoundary label="Caregiver Support">
       <div className={styles.page}>
         <header className="page-header">
-          <button className="btn btn-ghost" onClick={handleBack} aria-label="Go back">
+          <button className="btn btn-ghost page-header-back" onClick={handleBack} aria-label="Go back">
             <ArrowLeft size={20} /> Back
           </button>
           <h1>{tab === 'what-do-i-say' ? 'What Do I Say?' : 'Caregiver Hub'}</h1>

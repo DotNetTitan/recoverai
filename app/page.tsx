@@ -57,10 +57,12 @@ export default function HomePage() {
 
       <div className={styles.affirmation}>
         <p className={styles.affirmationText}>
-          <Sparkles size={16} className={styles.affirmationIcon} />
+          <Sparkles size={18} className={styles.affirmationIcon} />
           <span>{affirmation}</span>
         </p>
       </div>
+
+      <div className={styles.divider} role="separator" aria-hidden="true" />
 
       <section className={styles.crisisSection}>
         <Link
@@ -77,9 +79,19 @@ export default function HomePage() {
       <section className={styles.navGrid} aria-label="Main navigation">
         {HOME_NAV_CARDS.map(({ href, icon, label, desc }) => {
           const Icon = HOME_ICON_MAP[icon];
+          
           return (
             <Link key={href} href={href} className="card-nav" aria-label={label}>
-              <Icon size={32} color="var(--color-mint-tint)" aria-hidden="true" />
+              <div style={{
+                background: 'rgba(230, 242, 240, 0.12)',
+                borderRadius: '12px',
+                padding: '12px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                <Icon size={32} color="var(--color-warm-white)" aria-hidden="true" />
+              </div>
               <span className={styles.navLabel}>{label}</span>
               <span className={styles.navDesc}>{desc}</span>
             </Link>

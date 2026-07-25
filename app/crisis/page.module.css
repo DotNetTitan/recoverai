@@ -12,15 +12,19 @@
 
 .topBar {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
   padding: 16px 16px 0;
 }
 
 .topTitle {
-  font-size: var(--font-small);
-  color: var(--color-soft-stone);
-  font-weight: 500;
+  font-size: var(--font-display);
+  font-weight: 800;
+  color: var(--color-warm-white);
+  text-align: center;
+  width: 100%;
+  line-height: var(--lh-display);
 }
 
 .main {
@@ -95,11 +99,12 @@
 
 /* ── Response state ──────────── */
 .responseCard {
-  background: rgba(45, 79, 72, 0.6);
+  background: rgba(45, 79, 72, 0.8);
   border: 1px solid rgba(230, 242, 240, 0.15);
   border-radius: var(--radius-crisis-card);
   padding: 24px 20px;
   margin-top: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .responseText {

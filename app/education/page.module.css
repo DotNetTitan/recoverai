@@ -19,10 +19,11 @@
 }
 
 .qaSection {
-  background: rgba(230, 242, 240, 0.05);
+  background: rgba(45, 79, 72, 0.8);
   border-radius: var(--radius-card);
   padding: 20px;
-  border: 1px solid rgba(230, 242, 240, 0.1);
+  border: 1px solid rgba(230, 242, 240, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .searchForm {
@@ -36,10 +37,11 @@
 
 .answerCard {
   margin-top: 16px;
-  background: rgba(45, 79, 72, 0.6);
+  background: rgba(45, 79, 72, 0.9);
   border: 1px solid rgba(209, 205, 199, 0.2);
   border-radius: 12px;
   padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .answerText {
@@ -62,10 +64,17 @@
 }
 
 .categoryCard {
-  background: var(--color-forest-green);
+  background: rgba(45, 79, 72, 0.8);
   border: 1px solid rgba(209, 205, 199, 0.15);
   border-radius: var(--radius-card);
   padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.categoryCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
 .categoryHeader {

@@ -18,7 +18,7 @@ export default function SafetyPage() {
   return (
     <div className={styles.page}>
       <header className="page-header">
-        <button className="btn btn-ghost" onClick={() => router.push(APP_ROUTES.HOME)} aria-label="Go back to home">
+        <button className="btn btn-ghost page-header-back" onClick={() => router.push(APP_ROUTES.HOME)} aria-label="Go back to home">
           <ArrowLeft size={20} /> Back
         </button>
         <h1>Safety Tools</h1>
