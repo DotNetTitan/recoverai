@@ -16,6 +16,7 @@ interface EducationQaProps {
 
 interface EducationCategoriesProps {
   iconMap: Record<string, React.ElementType>;
+  onArticleClick: (article: string) => void;
 }
 
 export function EducationQa({
@@ -65,7 +66,7 @@ export function EducationQa({
   );
 }
 
-export function EducationCategories({ iconMap }: EducationCategoriesProps) {
+export function EducationCategories({ iconMap, onArticleClick }: EducationCategoriesProps) {
   return (
     <div className={styles.categoriesSection}>
       <h2 className={styles.sectionTitle}>Curated Topics</h2>
@@ -80,7 +81,12 @@ export function EducationCategories({ iconMap }: EducationCategoriesProps) {
               </div>
               <div className={styles.articleList}>
                 {cat.articles.map((article) => (
-                  <button key={article} type="button" className={styles.articleLink}>
+                  <button 
+                    key={article} 
+                    type="button" 
+                    className={styles.articleLink}
+                    onClick={() => onArticleClick(article)}
+                  >
                     {article} <ChevronRight size={16} />
                   </button>
                 ))}

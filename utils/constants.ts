@@ -133,6 +133,22 @@ export const AFFIRMATIONS = [
   'One moment at a time.',
 ] as const;
 
+export const EDUCATION_ARTICLES: Record<string, string> = {
+  'What is SUD?': 'https://nida.nih.gov/publications/drugfacts/understanding-drug-use-addiction',
+  'Brain Science': 'https://nida.nih.gov/publications/drugs-brains-behavior-science-addiction/drugs-brain',
+  'Common Myths': 'https://nida.nih.gov/research-topics/addiction-science/drugs-brain-behavior-science-of-addiction',
+  'Early Recovery': 'https://www.samhsa.gov/substance-use/recovery',
+  'Maintenance': 'https://nida.nih.gov/publications/drugs-brains-behavior-science-addiction/treatment-recovery',
+  'What to Expect': 'https://nida.nih.gov/research-topics/recovery',
+  'Setting Boundaries': 'https://www.samhsa.gov/mental-health/how-to-talk/friends-and-family-members',
+  'Self-Care': 'https://www.samhsa.gov/mental-health/children-and-families/coping-resources',
+  'Avoiding Enabling': 'https://library.samhsa.gov/product/navigating-mental-health-substance-use-care/pep25-08-008',
+  'Types of Treatment': 'https://nida.nih.gov/research-topics/treatment',
+  'MAT Overview': 'https://www.samhsa.gov/substance-use/treatment/options',
+  'Hotlines': 'https://www.samhsa.gov/find-help/helplines/national-helpline',
+  'Support Groups': 'https://www.samhsa.gov/find-support/health-care-or-support/support-group-or-local-program',
+};
+
 export const EDUCATION_CATEGORIES = [
   { id: 'understanding', title: 'Understanding Addiction', icon: 'Brain', articles: ['What is SUD?', 'Brain Science', 'Common Myths'] },
   { id: 'stages', title: 'Recovery Stages', icon: 'ShieldAlert', articles: ['Early Recovery', 'Maintenance', 'What to Expect'] },

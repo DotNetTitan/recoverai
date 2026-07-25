@@ -6,7 +6,7 @@ import { ArrowLeft, Brain, HeartHandshake, Phone, Pill, ShieldAlert } from 'luci
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { useGemini } from '@/hooks/useGemini';
 import { useSpeech } from '@/hooks/useSpeech';
-import { AI_CONFIG, APP_ROUTES } from '@/utils/constants';
+import { AI_CONFIG, APP_ROUTES, EDUCATION_ARTICLES } from '@/utils/constants';
 import { EDUCATION_SYSTEM_PROMPT } from '@/utils/prompts';
 import { EducationCategories, EducationQa } from './components';
 import styles from './page.module.css';
@@ -61,7 +61,7 @@ export default function EducationPage() {
             onQueryChange={setQuery}
             onSpeak={speak}
           />
-          <EducationCategories iconMap={EDUCATION_ICON_MAP} />
+          <EducationCategories iconMap={EDUCATION_ICON_MAP} onArticleClick={(article) => { window.open(EDUCATION_ARTICLES[article], '_blank', 'noopener,noreferrer'); }} />
         </main>
       </div>
     </ErrorBoundary>
