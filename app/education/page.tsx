@@ -18,7 +18,7 @@ const CATEGORIES = [
 
 export default function EducationPage() {
   const router = useRouter();
-  const { callGemini, loading } = useGemini();
+  const { callGemini } = useGemini();
   const { speak, stopSpeaking } = useSpeech();
   
   const [query, setQuery] = useState('');

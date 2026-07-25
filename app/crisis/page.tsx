@@ -18,28 +18,28 @@ import {
 import { useProfile } from '@/hooks/useProfile';
 import { useGemini } from '@/hooks/useGemini';
 import { useSpeech } from '@/hooks/useSpeech';
-import { buildCrisisPrompt, CRISIS_HOTLINE_TEL } from '@/utils/constants';
+import { buildCrisisPrompt, CRISIS_HOTLINE_TEL, CRISIS_OPTIONS } from '@/utils/constants';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import styles from './page.module.css';
 
-const CRISIS_OPTIONS = [
-  { id: 'craving', label: "I'm having a craving", icon: Flame },
-  { id: 'about-to-use', label: "I'm about to use", icon: AlertCircle },
-  { id: 'overwhelmed', label: 'I feel overwhelmed', icon: Wind },
-  { id: 'need-to-call', label: 'I need to call someone', icon: Users },
-  { id: 'need-grounding', label: 'I need a grounding exercise', icon: Leaf },
-];
+const CRISIS_ICONS: Record<string, React.ElementType> = {
+  craving: Flame,
+  'about-to-use': AlertCircle,
+  overwhelmed: Wind,
+  'need-to-call': Users,
+  'need-grounding': Leaf,
+};
 
 type Phase = 'select' | 'loading' | 'response';
 
 export default function CrisisPage() {
   const { profile } = useProfile();
-  const { callGemini, loading } = useGemini();
+  const { callGemini } = useGemini();
   const { speak, stopSpeaking, transcript, listening, startListening, stopListening, supported } = useSpeech();
   const router = useRouter();
 
   const [phase, setPhase] = useState<Phase>('select');
   const [responseText, setResponseText] = useState('');
-  const [selectedOption, setSelectedOption] = useState('');
 
   // Auto-speak AI response
   useEffect(() => {
@@ -55,7 +55,6 @@ export default function CrisisPage() {
 
   async function handleSubmit(userMessage: string) {
     if (!userMessage.trim()) return;
-    setSelectedOption(userMessage);
     setPhase('loading');
 
     const systemPrompt = buildCrisisPrompt(
@@ -73,7 +72,6 @@ export default function CrisisPage() {
     stopSpeaking();
     setPhase('select');
     setResponseText('');
-    setSelectedOption('');
   }
 
   const contactTel = profile?.emergencyContactPhone
@@ -81,6 +79,7 @@ export default function CrisisPage() {
     : undefined;
 
   return (
+    <ErrorBoundary label="Crisis Mode">
     <div className={styles.page}>
       {/* Top bar */}
       <div className={styles.topBar}>
@@ -102,18 +101,21 @@ export default function CrisisPage() {
             <p className={styles.subPrompt}>Tap a card or use your voice</p>
 
             <div className={styles.optionsStack}>
-              {CRISIS_OPTIONS.map(({ id, label, icon: Icon }) => (
-                <button
-                  key={id}
-                  className="card-crisis"
-                  onClick={() => handleSubmit(label)}
-                  aria-label={label}
-                  id={`crisis-option-${id}`}
-                >
-                  <Icon size={28} color="var(--color-mint-tint)" aria-hidden="true" />
-                  <span className={styles.optionLabel}>{label}</span>
-                </button>
-              ))}
+              {CRISIS_OPTIONS.map(({ id, label }) => {
+                const Icon = CRISIS_ICONS[id];
+                return (
+                  <button
+                    key={id}
+                    className="card-crisis"
+                    onClick={() => handleSubmit(label)}
+                    aria-label={label}
+                    id={'crisis-option-' + id}
+                  >
+                    {Icon && <Icon size={28} color="var(--color-mint-tint)" aria-hidden="true" />}
+                    <span className={styles.optionLabel}>{label}</span>
+                  </button>
+                );
+              })}
             </div>
 
             {/* Voice input */}
@@ -140,9 +142,10 @@ export default function CrisisPage() {
         {/* ── Phase: Loading ─────────────────────────────── */}
         {phase === 'loading' && (
           <div className={styles.loadingState} aria-live="polite" aria-busy="true">
-            <div className={styles.pulseCircle} />
-            <p className={styles.loadingText}>Preparing your support…</p>
-            <p className={styles.loadingSubtext}>{selectedOption}</p>
+            <div className={styles.loadingSkeleton}>
+              <div className="skeleton" style={{ height: 120, width: '100%' }} />
+              <div className="skeleton" style={{ height: 20, width: '60%', margin: '0 auto' }} />
+            </div>
           </div>
         )}
 
@@ -197,5 +200,6 @@ export default function CrisisPage() {
         )}
       </div>
     </div>
+    </ErrorBoundary>
   );
 }

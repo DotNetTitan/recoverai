@@ -1,8 +1,12 @@
 /* app/scripts/page.module.css */
 .page {
   min-height: 100dvh;
+  min-height: var(--dvh-fallback, 100vh);
   display: flex;
   flex-direction: column;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .prompt {
@@ -42,24 +46,12 @@
   gap: 20px;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.15); opacity: 1; }
-}
-
-.pulseCircle {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--color-forest-green), var(--color-deep-emerald));
-  border: 3px solid var(--color-mint-tint);
-  animation: pulse 1.8s ease-in-out infinite;
-}
-
-.loadingText {
-  font-size: var(--font-h2);
-  font-weight: 600;
-  color: var(--color-warm-white);
+.loadingSkeleton {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 /* Script Card */
@@ -119,4 +111,10 @@
   color: var(--color-soft-stone);
   text-align: center;
   margin-top: 8px;
+}
+
+@media (min-width: 481px) {
+  .chipWrap {
+    gap: 12px;
+  }
 }

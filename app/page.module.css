@@ -1,7 +1,11 @@
 /* app/page.module.css */
 .page {
   min-height: 100dvh;
+  min-height: var(--dvh-fallback, 100vh);
   padding-bottom: 40px;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .header {
@@ -65,6 +69,34 @@
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   padding: 0 20px;
+}
+
+@media (max-width: 360px) {
+  .navGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+@media (min-width: 481px) {
+  .header {
+    padding: 32px 32px 0;
+  }
+  .affirmation {
+    margin: 24px 32px 0;
+  }
+  .crisisSection {
+    padding: 24px 32px;
+  }
+  .navGrid {
+    padding: 0 32px;
+  }
+  .groundingSection {
+    padding: 16px 32px 0;
+  }
+  .disclaimer {
+    margin: 24px 32px 0;
+  }
 }
 
 .navLabel {

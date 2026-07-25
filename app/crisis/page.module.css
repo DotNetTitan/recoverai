@@ -1,9 +1,13 @@
 /* app/crisis/page.module.css */
 .page {
   min-height: 100dvh;
+  min-height: var(--dvh-fallback, 100vh);
   background: var(--color-deep-emerald);
   display: flex;
   flex-direction: column;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .topBar {
@@ -21,7 +25,7 @@
 
 .main {
   flex: 1;
-  padding: 24px 20px 120px; /* space for pinned bottom */
+  padding: 24px 20px 120px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -66,7 +70,7 @@
   border-radius: var(--radius-btn);
 }
 
-/* ── Loading state ──────────── */
+/* ── Loading state (skeleton) ─── */
 .loadingState {
   display: flex;
   flex-direction: column;
@@ -74,33 +78,15 @@
   justify-content: center;
   flex: 1;
   gap: 20px;
-  padding: 40px 0;
+  padding: 40px 16px;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.15); opacity: 1; }
-}
-
-.pulseCircle {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--color-forest-green), var(--color-deep-emerald));
-  border: 3px solid var(--color-mint-tint);
-  animation: pulse 1.8s ease-in-out infinite;
-}
-
-.loadingText {
-  font-size: var(--font-h2);
-  font-weight: 600;
-  color: var(--color-warm-white);
-}
-
-.loadingSubtext {
-  font-size: var(--font-small);
-  color: var(--color-soft-stone);
-  font-style: italic;
+.loadingSkeleton {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 /* ── Response state ──────────── */
@@ -116,4 +102,30 @@
   font-size: var(--font-body);
   line-height: var(--lh-body);
   color: var(--color-warm-white);
+}
+
+/* ── Landscape ────────────────── */
+@media (orientation: landscape) and (max-height: 500px) {
+  .prompt {
+    font-size: clamp(20px, 4vw, 28px);
+  }
+  .optionsStack {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .main {
+    padding: 12px 20px 100px;
+    gap: 8px;
+  }
+}
+
+/* ── Tablet / desktop ─────────── */
+@media (min-width: 481px) {
+  .main {
+    padding: 32px 32px 120px;
+  }
+  .topBar {
+    padding: 20px 24px 0;
+  }
 }

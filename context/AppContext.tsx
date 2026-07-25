@@ -13,7 +13,6 @@ import {
   getProfile,
   saveProfile,
   getTriggerLog,
-  saveTriggerLog,
   getSafetyPlan,
   saveSafetyPlan,
   addTriggerEntry as storagAddEntry,
@@ -34,12 +33,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [safetyPlan, setSafetyPlan] = useState<SafetyPlan | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Hydrate from localStorage on mount
+  // Hydrate from localStorage on mount (SSR-safe pattern)
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     setProfile(getProfile());
     setTriggerLog(getTriggerLog());
     setSafetyPlan(getSafetyPlan());
     setIsLoaded(true);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   const updateProfile = useCallback((p: UserProfile) => {

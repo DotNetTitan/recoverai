@@ -19,7 +19,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div style={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column', paddingBottom: 40 }}>
+    <div className="page" style={{ paddingBottom: 40 }}>
       <header className="page-header">
         <button className="btn btn-ghost" onClick={() => router.push('/')}>
           <ArrowLeft size={20} /> Back

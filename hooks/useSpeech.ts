@@ -1,5 +1,4 @@
 'use client';
-// hooks/useSpeech.ts — SpeechRecognition (STT) + SpeechSynthesis (TTS) hook
 import { useState, useCallback, useRef } from 'react';
 
 interface UseSpeechReturn {
@@ -12,6 +11,10 @@ interface UseSpeechReturn {
   supported: boolean;
 }
 
+/**
+ * Hook providing speech-to-text (via `SpeechRecognition`) and text-to-speech (via `SpeechSynthesis`).
+ * Returns `transcript`, `listening` flag, start/stop functions, `speak`/`stopSpeaking`, and `supported` status.
+ */
 export function useSpeech(): UseSpeechReturn {
   const [transcript, setTranscript] = useState('');
   const [listening, setListening] = useState(false);

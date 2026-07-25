@@ -7,6 +7,7 @@ import { useProfile } from '@/hooks/useProfile';
 import { useGemini } from '@/hooks/useGemini';
 import { useSpeech } from '@/hooks/useSpeech';
 import { SCRIPT_TYPES, CONTEXT_TAGS, buildScriptPrompt } from '@/utils/constants';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import styles from './page.module.css';
 
 const ICON_MAP: Record<string, React.ElementType> = {
@@ -20,7 +21,7 @@ type Phase = 'select-type' | 'select-context' | 'loading' | 'response';
 
 export default function ScriptsPage() {
   const { profile } = useProfile();
-  const { callGemini, loading } = useGemini();
+  const { callGemini } = useGemini();
   const { speak, stopSpeaking } = useSpeech();
   const router = useRouter();
 
@@ -63,6 +64,7 @@ export default function ScriptsPage() {
   }
 
   return (
+    <ErrorBoundary label="Emergency Scripts">
     <div className={styles.page}>
       <header className="page-header">
         <button className="btn btn-ghost" onClick={() => { stopSpeaking(); router.push('/'); }}>
@@ -95,7 +97,7 @@ export default function ScriptsPage() {
         {phase === 'select-context' && (
           <>
             <div>
-              <h2 className={styles.prompt}>What's the situation?</h2>
+              <h2 className={styles.prompt}>What&apos;s the situation?</h2>
               <p className={styles.subPrompt}>Select a context to personalize your script.</p>
             </div>
             <div className={styles.chipWrap}>
@@ -113,8 +115,10 @@ export default function ScriptsPage() {
 
         {phase === 'loading' && (
           <div className={styles.loadingState}>
-            <div className={styles.pulseCircle} />
-            <p className={styles.loadingText}>Drafting your script...</p>
+            <div className={styles.loadingSkeleton}>
+              <div className="skeleton" style={{ height: 100, width: '100%' }} />
+              <div className="skeleton" style={{ height: 20, width: '50%', margin: '0 auto' }} />
+            </div>
           </div>
         )}
 
@@ -155,5 +159,6 @@ export default function ScriptsPage() {
         )}
       </main>
     </div>
+    </ErrorBoundary>
   );
 }

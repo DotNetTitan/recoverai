@@ -1,8 +1,11 @@
 'use client';
-// hooks/useProfile.ts — Convenience hook wrapping app context profile access
 import { useApp } from '@/context/AppContext';
 import { UserProfile } from '@/context/types';
 
+/**
+ * Convenience hook wrapping AppContext for profile access.
+ * Returns the user profile, a save function, onboarded status, and loaded state.
+ */
 export function useProfile() {
   const { profile, updateProfile, isLoaded } = useApp();
 
