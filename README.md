@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RecoverAI 
 
-## Getting Started
+<img src="./recoverai_primary_logo.png" width="300" alt="RecoverAI Logo" />
 
-First, run the development server:
+**RecoverAI** is a multi-modal, AI-powered platform designed to provide immediate, zero-typing support for individuals navigating substance use disorders (SUD) and their caregivers. 
 
+Developed during an AI hackathon, this platform bridges the gap between traditional treatment and the moments when individuals are most vulnerable, offering a voice-first crisis intervention tool and personalized grounding exercises.
+
+## 🚀 Features
+
+- **Zero-Typing Crisis Mode**: Speak directly to the app during overwhelming moments and receive calm, AI-generated guidance.
+- **Personalized Emergency Scripts**: AI drafts scripts to help users navigate tough social situations (e.g., refusing peer pressure, calling a sponsor).
+- **Safety Tools**: Box breathing animations, 5-4-3-2-1 grounding exercises, and a persistent trigger log.
+- **Caregiver Hub**: Dedicated resources to help loved ones understand the recovery process and establish healthy boundaries.
+- **Privacy-First**: No backend database. All personal profile data (triggers, contacts, logs) is stored locally on the user's device using `localStorage`.
+
+## 🛠️ Technology Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Vanilla CSS Modules (Custom Design System, no Tailwind)
+- **Icons**: Lucide React
+- **AI Integration**: Google Gemini 2.0 Flash via server-side Route Handlers
+- **Testing**: Jest & React Testing Library
+- **CI/CD**: GitHub Actions
+
+## 🚦 Getting Started
+
+### Prerequisites
+- Node.js (v20+)
+- A Google Gemini API Key
+
+### Installation
+
+1. Navigate to the app directory:
+   ```bash
+   cd recoverai
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Configure your API key:
+   Create a `.env.local` file in the `recoverai` directory and add your key:
+   ```env
+   GEMINI_API_KEY=your_gemini_api_key_here
+   ```
+
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+## 🧪 Testing
+The project uses Jest for testing. Tests are automatically run via the GitHub Actions CI pipeline.
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cd recoverai
+npm run test
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ⚠️ Disclaimer
+RecoverAI is a supportive tool built for hackathon demonstration purposes. It is **not** a medical service. In an emergency, please call 911. For crisis support, call or text 988.
