@@ -219,3 +219,61 @@
 .planText {
   margin-bottom: 20px;
 }
+
+.loadingPlan {
+  margin-bottom: 20px;
+}
+
+.planContent {
+  padding: 24px;
+}
+
+.planContentTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-warm-white);
+  margin-bottom: 16px;
+}
+
+.planContent .planText {
+  text-align: left;
+  color: var(--color-warm-white);
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+.planContent .planText p {
+  margin-bottom: 12px;
+}
+
+.planActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.planActions button {
+  flex: 1;
+  min-width: 140px;
+}
+
+.formHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.formTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-warm-white);
+}
+
+.label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-warm-white);
+  margin-bottom: 8px;
+}

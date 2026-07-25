@@ -88,7 +88,7 @@ export default function OnboardingPage() {
           <div className={styles.welcomeContent}>
             <Sparkles size={48} color="var(--color-gold)" className={styles.welcomeIcon} />
             <p className={styles.welcomeSub}>
-              Your personal AI-powered companion for navigating recovery, one moment at a time.
+              Your personal companion for navigating recovery, one moment at a time.
             </p>
           </div>
         )}

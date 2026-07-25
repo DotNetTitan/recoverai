@@ -76,3 +76,17 @@
   color: var(--color-soft-stone);
   margin-top: 16px;
 }
+
+.modalTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-warm-white);
+  margin-bottom: 12px;
+}
+
+.modalText {
+  font-size: 15px;
+  color: var(--color-warm-white);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}

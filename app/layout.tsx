@@ -6,7 +6,7 @@ import { AppProvider } from '@/context/AppContext';
 export const metadata: Metadata = {
   title: 'RecoverAI — Recovery & Prevention Platform',
   description:
-    'Multi-modal, AI-powered support for individuals navigating substance use disorders and their caregivers. Voice-first crisis intervention, personalized scripts, and grounding tools.',
+    'Multi-modal support for individuals navigating substance use disorders and their caregivers. Voice-first crisis intervention, personalized scripts, and grounding tools.',
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-96x96.png',

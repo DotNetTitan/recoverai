@@ -8,6 +8,8 @@ interface CaregiverHubProps {
   iconMap: Record<string, React.ElementType>;
   shareError: string | null;
   onOpenGuidance: () => void;
+  onOpenChecklist: () => void;
+  onOpenArticle: (articleId: string) => void;
   onShare: () => void;
 }
 
@@ -61,7 +63,7 @@ export function CaregiverGuidance({
   );
 }
 
-export function CaregiverHub({ iconMap, shareError, onOpenGuidance, onShare }: CaregiverHubProps) {
+export function CaregiverHub({ iconMap, shareError, onOpenGuidance, onOpenChecklist, onOpenArticle, onShare }: CaregiverHubProps) {
   const MessageIcon = iconMap.MessageCircle ?? MessageCircle;
 
   return (
@@ -77,7 +79,7 @@ export function CaregiverHub({ iconMap, shareError, onOpenGuidance, onShare }: C
           <MessageIcon size={24} color="var(--color-warm-white)" />
           <h2 className={styles.featureTitle}>What do I say right now?</h2>
         </div>
-        <p className={styles.featureText}>AI-powered guidance for tough conversations.</p>
+        <p className={styles.featureText}>Expert guidance for tough conversations.</p>
       </button>
 
       <div className={`card ${styles.featureCard}`}>
@@ -86,7 +88,7 @@ export function CaregiverHub({ iconMap, shareError, onOpenGuidance, onShare }: C
           <h2 className={styles.featureTitle}>Are they in crisis right now?</h2>
         </div>
         <p className={styles.featureText}>Follow the emergency checklist to keep them safe.</p>
-        <button className={`btn ${styles.featureButton}`}>View Emergency Checklist</button>
+        <button className={`btn ${styles.featureButton}`} onClick={onOpenChecklist}>View Emergency Checklist</button>
       </div>
 
       <div>
@@ -95,7 +97,11 @@ export function CaregiverHub({ iconMap, shareError, onOpenGuidance, onShare }: C
           {CAREGIVER_ARTICLES.map((article) => {
             const Icon = ARTICLE_ICON_MAP[article.icon];
             return (
-              <button key={article.id} className={`card ${styles.articleButton}`}>
+              <button 
+                key={article.id} 
+                className={`card ${styles.articleButton}`}
+                onClick={() => onOpenArticle(article.id)}
+              >
                 <div className={styles.articleIcon}>
                   <Icon size={20} color="var(--color-mint-tint)" />
                 </div>
