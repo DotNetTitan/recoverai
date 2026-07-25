@@ -1,0 +1,116 @@
+/* app/safety/page.module.css */
+.page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 40px;
+}
+
+.tabs {
+  display: flex;
+  padding: 12px 20px 0;
+  border-bottom: 1px solid rgba(209, 205, 199, 0.1);
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--color-soft-stone);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.activeTab {
+  color: var(--color-mint-tint);
+  border-bottom-color: var(--color-mint-tint);
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-warm-white);
+  margin-bottom: 12px;
+}
+
+/* Breathing Animation */
+.breathingCard {
+  background: rgba(230, 242, 240, 0.03);
+  border-radius: var(--radius-card);
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  min-height: 300px;
+}
+
+.breathingCircle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(230, 242, 240, 0.1), transparent);
+  border: 2px solid rgba(230, 242, 240, 0.2);
+  transition: transform 4s linear;
+}
+
+.breathingActive {
+  animation: boxBreathe 16s infinite linear;
+}
+
+@keyframes boxBreathe {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  25% { transform: translate(-50%, -50%) scale(1.8); } /* Inhale 4s */
+  50% { transform: translate(-50%, -50%) scale(1.8); } /* Hold 4s */
+  75% { transform: translate(-50%, -50%) scale(1); }   /* Exhale 4s */
+  100% { transform: translate(-50%, -50%) scale(1); }  /* Hold 4s */
+}
+
+.breathingInstruction {
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--color-mint-tint);
+  font-weight: 500;
+  z-index: 10;
+}
+
+.groundingList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.groundingList li {
+  font-size: 16px;
+  color: var(--color-warm-white);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.groundingList strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: rgba(230, 242, 240, 0.1);
+  border-radius: 50%;
+  color: var(--color-mint-tint);
+}

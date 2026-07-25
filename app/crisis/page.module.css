@@ -1,0 +1,119 @@
+/* app/crisis/page.module.css */
+.page {
+  min-height: 100dvh;
+  background: var(--color-deep-emerald);
+  display: flex;
+  flex-direction: column;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 16px 0;
+}
+
+.topTitle {
+  font-size: var(--font-small);
+  color: var(--color-soft-stone);
+  font-weight: 500;
+}
+
+.main {
+  flex: 1;
+  padding: 24px 20px 120px; /* space for pinned bottom */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.prompt {
+  font-size: var(--font-display);
+  line-height: var(--lh-display);
+  font-weight: 800;
+  color: var(--color-warm-white);
+  text-align: center;
+}
+
+.subPrompt {
+  font-size: var(--font-small);
+  color: var(--color-soft-stone);
+  text-align: center;
+}
+
+.optionsStack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.optionLabel {
+  font-size: var(--font-body);
+  font-weight: 600;
+  color: var(--color-warm-white);
+  text-align: left;
+  flex: 1;
+}
+
+.noVoice {
+  font-size: 13px;
+  color: var(--color-soft-stone);
+  text-align: center;
+  margin-top: 12px;
+  padding: 12px;
+  background: rgba(230, 242, 240, 0.05);
+  border-radius: var(--radius-btn);
+}
+
+/* ── Loading state ──────────── */
+.loadingState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 20px;
+  padding: 40px 0;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+.pulseCircle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--color-forest-green), var(--color-deep-emerald));
+  border: 3px solid var(--color-mint-tint);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+.loadingText {
+  font-size: var(--font-h2);
+  font-weight: 600;
+  color: var(--color-warm-white);
+}
+
+.loadingSubtext {
+  font-size: var(--font-small);
+  color: var(--color-soft-stone);
+  font-style: italic;
+}
+
+/* ── Response state ──────────── */
+.responseCard {
+  background: rgba(45, 79, 72, 0.6);
+  border: 1px solid rgba(230, 242, 240, 0.15);
+  border-radius: var(--radius-crisis-card);
+  padding: 24px 20px;
+  margin-top: 8px;
+}
+
+.responseText {
+  font-size: var(--font-body);
+  line-height: var(--lh-body);
+  color: var(--color-warm-white);
+}

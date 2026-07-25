@@ -1,0 +1,14 @@
+/* app/caregiver/page.module.css */
+.page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 40px;
+}
+
+.sectionTitle {
+  font-size: var(--font-h2);
+  font-weight: 700;
+  color: var(--color-warm-white);
+  margin-bottom: 12px;
+}

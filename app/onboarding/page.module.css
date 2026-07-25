@@ -1,0 +1,121 @@
+/* app/onboarding/page.module.css */
+.page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0 0;
+}
+
+.progressBar {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.progressDot {
+  height: 6px;
+  flex: 1;
+  border-radius: 999px;
+  background: rgba(230, 242, 240, 0.15);
+  transition: background 0.3s ease;
+}
+
+.progressDotActive {
+  background: var(--color-mint-tint);
+}
+
+.main {
+  flex: 1;
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.stepHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.stepQuestion {
+  font-size: var(--font-h1);
+  font-weight: 800;
+  color: var(--color-warm-white);
+  line-height: var(--lh-h1);
+  flex: 1;
+}
+
+.stepContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Role cards */
+.roleCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 20px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.roleCardActive {
+  background: var(--color-forest-green);
+  border-color: var(--color-mint-tint) !important;
+}
+.roleLabel {
+  font-size: var(--font-h2);
+  font-weight: 700;
+  color: var(--color-warm-white);
+}
+.roleDesc {
+  font-size: var(--font-small);
+  color: var(--color-soft-stone);
+}
+.roleCheck {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: var(--color-mint-tint);
+}
+
+/* Chip group */
+.chipGroupLabel {
+  font-size: var(--font-small);
+  font-weight: 600;
+  color: var(--color-soft-stone);
+  margin-bottom: 8px;
+}
+.optionalTag {
+  font-weight: 400;
+  font-size: 13px;
+}
+.chipWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.disclaimer {
+  font-size: 13px;
+  color: var(--color-soft-stone);
+  padding: 10px 12px;
+  background: rgba(230, 242, 240, 0.05);
+  border-radius: var(--radius-btn);
+  line-height: 1.5;
+}
+
+.footer {
+  padding: 16px 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
