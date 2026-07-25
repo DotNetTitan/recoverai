@@ -59,9 +59,14 @@ describe('Crisis Mode', () => {
     expect(screen.getByText('I need a grounding exercise')).toBeInTheDocument();
   });
 
-  it('displays the 988 emergency number button', () => {
+  it('displays the 112 emergency number button', () => {
     render(<CrisisPage />);
-    expect(screen.getByText('Call 988')).toBeInTheDocument();
+    expect(screen.getByText('112 Emergency')).toBeInTheDocument();
+  });
+
+  it('displays the 14416 Tele-MANAS mental health helpline button', () => {
+    render(<CrisisPage />);
+    expect(screen.getByText('14416 (Tele-MANAS)')).toBeInTheDocument();
   });
 
   it('displays the emergency contact button when profile has contact', () => {
@@ -86,14 +91,14 @@ describe('Crisis Mode', () => {
   });
 
   it('shows fallback message when AI call fails', async () => {
-    mockCallGemini.mockResolvedValueOnce("I'm here for you. Please call 988 if you need immediate help.");
+    mockCallGemini.mockResolvedValueOnce("I'm here for you. Please call 14416 (Tele-MANAS) if you need immediate help.");
 
     render(<CrisisPage />);
 
     fireEvent.click(screen.getByText("I'm having a craving"));
 
     await waitFor(() => {
-      expect(screen.getByText("I'm here for you. Please call 988 if you need immediate help.")).toBeInTheDocument();
+      expect(screen.getByText("I'm here for you. Please call 14416 (Tele-MANAS) if you need immediate help.")).toBeInTheDocument();
     });
   });
 

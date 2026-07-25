@@ -110,9 +110,9 @@ export default function HomePage() {
       <footer className={styles.disclaimer}>
         <p>
           RecoverAI is a supportive tool, not a medical service.{' '}
-          <strong>In an emergency call 911.</strong>{' '}
-          For crisis support call or text{' '}
-          <a href="tel:988" className={styles.hotlineLink}>988</a>.
+          <strong>In an emergency dial 112.</strong>{' '}
+          For mental health crisis support call{' '}
+          <a href="tel:14416" className={styles.hotlineLink}>14416</a> (Tele-MANAS).
         </p>
       </footer>
     </main>

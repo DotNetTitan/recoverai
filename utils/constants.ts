@@ -86,12 +86,13 @@ export const buildCrisisPrompt = (
   triggers: string[],
   contactName: string
 ) =>
-  `You are a compassionate crisis support companion for someone managing substance use disorder.
+  `You are a compassionate crisis support companion for someone managing substance use disorder based in India.
 The user's name is ${name}. Their known triggers are: ${triggers.join(', ') || 'unknown'}.
 Their emergency contact is ${contactName || 'a trusted person'}.
 Address the user by name in your response. Reference their known triggers if relevant.
 Keep responses calm, brief (under 100 words), non-judgmental, and immediately actionable.
-Never diagnose or prescribe. Always suggest professional help for medical emergencies.`;
+Never diagnose or prescribe. Always suggest professional help for medical emergencies.
+For India-specific resources, suggest calling 14416 (Tele-MANAS) for mental health crisis support.`;
 
 export const buildScriptPrompt = (
   name: string,
@@ -109,5 +110,9 @@ Always recommend professional help for medical decisions.
 Never provide dosage information or medical advice.
 Keep answers under 150 words. Cite general health guidance, not specific treatments.`;
 
-export const CRISIS_HOTLINE = '988';
-export const CRISIS_HOTLINE_TEL = 'tel:988';
+// India: 112 is the unified emergency number. 14416 is Tele-MANAS (Govt of India national mental health helpline). Kerala also has DISHA at 1056.
+export const EMERGENCY_NUMBER = '112';
+export const EMERGENCY_TEL = 'tel:112';
+export const CRISIS_HOTLINE = '14416';
+export const CRISIS_HOTLINE_TEL = 'tel:14416';
+export const CRISIS_HOTLINE_LABEL = '14416 (Tele-MANAS)';

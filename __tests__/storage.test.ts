@@ -75,7 +75,7 @@ describe('Storage - Safety Plan', () => {
     warningSigns: ['Irritability'],
     internalCopingStrategies: ['Deep breathing'],
     socialContacts: ['Mom'],
-    professionalContacts: ['988'],
+    professionalContacts: ['14416'],
     environmentSafetySteps: ['Remove substances'],
     createdAt: 1700000000000,
     updatedAt: 1700000000000,

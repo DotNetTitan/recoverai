@@ -18,7 +18,7 @@ import {
 import { useProfile } from '@/hooks/useProfile';
 import { useGemini } from '@/hooks/useGemini';
 import { useSpeech } from '@/hooks/useSpeech';
-import { buildCrisisPrompt, CRISIS_HOTLINE_TEL, CRISIS_OPTIONS } from '@/utils/constants';
+import { buildCrisisPrompt, EMERGENCY_TEL, CRISIS_HOTLINE_TEL, CRISIS_OPTIONS } from '@/utils/constants';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import styles from './page.module.css';
 
@@ -179,23 +179,32 @@ export default function CrisisPage() {
       {/* Pinned emergency buttons — always visible */}
       <div className="pinned-bottom">
         <a
-          href={CRISIS_HOTLINE_TEL}
+          href={EMERGENCY_TEL}
           className="btn btn-crisis"
           style={{ flex: 1, background: 'var(--color-calm-blue)' }}
-          aria-label="Call 988 crisis lifeline"
-          id="call-988-btn"
+          aria-label="Dial 112 for emergency services in India"
+          id="call-112-btn"
         >
-          <PhoneCall size={20} /> Call 988
+          <PhoneCall size={20} /> 112 Emergency
+        </a>
+        <a
+          href={CRISIS_HOTLINE_TEL}
+          className="btn btn-outline"
+          style={{ flex: 1 }}
+          aria-label="Call 14416 Tele-MANAS mental health helpline"
+          id="call-14416-btn"
+        >
+          <PhoneCall size={20} /> 14416 (Tele-MANAS)
         </a>
         {contactTel && (
           <a
             href={contactTel}
-            className="btn btn-outline"
-            style={{ flex: 1 }}
+            className="btn btn-ghost"
+            style={{ flex: 1, fontSize: 14 }}
             aria-label={`Call ${profile?.emergencyContactName ?? 'your contact'}`}
             id="call-contact-btn"
           >
-            <Phone size={20} /> {profile?.emergencyContactName ?? 'Contact'}
+            <Phone size={18} /> {profile?.emergencyContactName ?? 'Contact'}
           </a>
         )}
       </div>

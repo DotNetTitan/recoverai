@@ -7,7 +7,7 @@ interface GeminiParams {
   maxTokens?: number;
 }
 
-const FALLBACK = "I'm here for you. Please call 988 if you need immediate help.";
+const FALLBACK = "I'm here for you. Please call 14416 (Tele-MANAS) if you need immediate help.";
 
 const cache = new Map<string, string>();
 

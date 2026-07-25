@@ -5,7 +5,7 @@ const GEMINI_API_URL =
   'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
 const FALLBACK =
-  "I'm here for you. Please call 988 if you need immediate help.";
+  "I'm here for you. Please call 14416 (Tele-MANAS) if you need immediate help.";
 
 export async function POST(req: NextRequest) {
   try {

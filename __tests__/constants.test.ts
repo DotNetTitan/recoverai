@@ -1,4 +1,4 @@
-import { buildCrisisPrompt, buildScriptPrompt, CRISIS_HOTLINE } from '../utils/constants';
+import { buildCrisisPrompt, buildScriptPrompt, CRISIS_HOTLINE, EMERGENCY_NUMBER } from '../utils/constants';
 
 describe('Constants and Utilities', () => {
   it('should format a crisis prompt correctly', () => {
@@ -17,6 +17,10 @@ describe('Constants and Utilities', () => {
   });
 
   it('should have the correct crisis hotline', () => {
-    expect(CRISIS_HOTLINE).toBe('988');
+    expect(CRISIS_HOTLINE).toBe('14416');
+  });
+
+  it('should have the correct emergency number', () => {
+    expect(EMERGENCY_NUMBER).toBe('112');
   });
 });

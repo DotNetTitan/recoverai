@@ -42,7 +42,7 @@ describe('useGemini', () => {
       });
     });
 
-    expect(output).toBe("I'm here for you. Please call 988 if you need immediate help.");
+    expect(output).toBe("I'm here for you. Please call 14416 (Tele-MANAS) if you need immediate help.");
     expect(result.current.error).toBe('Could not reach AI. Please try again.');
   });
 
@@ -61,7 +61,7 @@ describe('useGemini', () => {
       });
     });
 
-    expect(output).toBe("I'm here for you. Please call 988 if you need immediate help.");
+    expect(output).toBe("I'm here for you. Please call 14416 (Tele-MANAS) if you need immediate help.");
   });
 
   it('sets loading state correctly during API call', async () => {

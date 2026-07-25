@@ -28,7 +28,7 @@ export class ErrorBoundary extends Component<Props, State> {
           <div style={{ padding: 32, textAlign: 'center', color: 'var(--color-soft-stone)' }}>
             <p>Something went wrong. Please go back and try again.</p>
             <p style={{ fontSize: 14, marginTop: 8 }}>
-              If you need immediate help, call or text <strong>988</strong>.
+              If you need immediate help, call <strong>14416</strong> (Tele-MANAS) or dial <strong>112</strong>.
             </p>
           </div>
         )
