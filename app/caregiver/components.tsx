@@ -74,14 +74,17 @@ export function CaregiverHub({ iconMap, shareError, onOpenGuidance, onShare }: C
 
       <button className={`card ${styles.featureCard} ${styles.clickableCard}`} onClick={onOpenGuidance}>
         <div className={styles.featureHeader}>
-          <MessageIcon size={24} />
+          <MessageIcon size={24} color="var(--color-warm-white)" />
           <h2 className={styles.featureTitle}>What do I say right now?</h2>
         </div>
         <p className={styles.featureText}>AI-powered guidance for tough conversations.</p>
       </button>
 
       <div className={`card ${styles.featureCard}`}>
-        <h2 className={styles.featureTitle}>Are they in crisis right now?</h2>
+        <div className={styles.featureHeader}>
+          <ShieldAlert size={24} color="var(--color-warm-white)" />
+          <h2 className={styles.featureTitle}>Are they in crisis right now?</h2>
+        </div>
         <p className={styles.featureText}>Follow the emergency checklist to keep them safe.</p>
         <button className={`btn ${styles.featureButton}`}>View Emergency Checklist</button>
       </div>

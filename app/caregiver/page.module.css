@@ -35,13 +35,15 @@
 
 /* Feature Cards */
 .featureCard {
-  background: var(--color-calm-blue);
-  color: white;
+  background: rgba(45, 79, 72, 0.8);
+  color: var(--color-warm-white);
+  border: 1px solid rgba(209, 205, 199, 0.15);
   border-color: transparent;
   text-align: left;
   width: 100%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
 }
 
 .featureCard:hover {
@@ -51,6 +53,29 @@
 
 .featureCard:active {
   transform: scale(0.97);
+}
+
+/* Accent bars for feature cards */
+.featureCard:first-of-type::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #f59e0b;
+  border-radius: var(--radius-card) 0 0 var(--radius-card);
+}
+
+.featureCard:nth-of-type(2)::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--color-crisis-red);
+  border-radius: var(--radius-card) 0 0 var(--radius-card);
 }
 
 .clickableCard {
@@ -66,18 +91,21 @@
 
 .featureTitle {
   font-size: var(--font-h2);
+  color: var(--color-warm-white);
 }
 
 .featureText {
   font-size: var(--font-small);
+  color: var(--color-soft-stone);
   margin-bottom: 16px;
   opacity: 0.9;
 }
 
 .featureButton {
-  background: white;
-  color: var(--color-calm-blue);
+  background: var(--color-warm-white);
+  color: var(--color-forest-green);
   width: 100%;
+  font-weight: 600;
 }
 
 /* Articles */
@@ -89,6 +117,11 @@
   text-align: left;
   width: 100%;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.articleButton:active {
+  transform: scale(0.97);
 }
 
 .articleIcon {
@@ -100,6 +133,7 @@
 .articleTitle {
   font-weight: 600;
   font-size: var(--font-small);
+  color: var(--color-warm-white);
 }
 
 /* Share Card */

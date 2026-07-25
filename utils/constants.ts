@@ -137,16 +137,16 @@ export const EDUCATION_ARTICLES: Record<string, string> = {
   'What is SUD?': 'https://nida.nih.gov/publications/drugfacts/understanding-drug-use-addiction',
   'Brain Science': 'https://nida.nih.gov/publications/drugs-brains-behavior-science-addiction/drugs-brain',
   'Common Myths': 'https://nida.nih.gov/research-topics/addiction-science/drugs-brain-behavior-science-of-addiction',
-  'Early Recovery': 'https://www.samhsa.gov/substance-use/recovery',
+  'Early Recovery': 'https://nida.nih.gov/research-topics/recovery',
   'Maintenance': 'https://nida.nih.gov/publications/drugs-brains-behavior-science-addiction/treatment-recovery',
   'What to Expect': 'https://nida.nih.gov/research-topics/recovery',
-  'Setting Boundaries': 'https://www.samhsa.gov/mental-health/how-to-talk/friends-and-family-members',
-  'Self-Care': 'https://www.samhsa.gov/mental-health/children-and-families/coping-resources',
+  'Setting Boundaries': 'https://library.samhsa.gov/product/navigating-mental-health-substance-use-care/pep25-08-008',
+  'Self-Care': 'https://library.samhsa.gov/sites/default/files/self-care-factsheet-pep25-08-009.pdf',
   'Avoiding Enabling': 'https://library.samhsa.gov/product/navigating-mental-health-substance-use-care/pep25-08-008',
   'Types of Treatment': 'https://nida.nih.gov/research-topics/treatment',
-  'MAT Overview': 'https://www.samhsa.gov/substance-use/treatment/options',
-  'Hotlines': 'https://www.samhsa.gov/find-help/helplines/national-helpline',
-  'Support Groups': 'https://www.samhsa.gov/find-support/health-care-or-support/support-group-or-local-program',
+  'MAT Overview': 'https://nida.nih.gov/research-topics/medications-to-treat-opioid-addiction',
+  'Hotlines': 'https://988lifeline.org/',
+  'Support Groups': 'https://library.samhsa.gov/product/substance-abuse-treatment-group-therapy/sma15-4024',
 };
 
 export const EDUCATION_CATEGORIES = [
