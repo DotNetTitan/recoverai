@@ -119,7 +119,7 @@ export const AI_STATUS_MESSAGES = {
 } as const;
 
 export const HOME_NAV_CARDS = [
-  { href: APP_ROUTES.SCRIPTS, icon: 'FileText', label: 'Emergency Scripts', desc: 'Personalized scripts for tough moments' },
+  { href: APP_ROUTES.SCRIPTS, icon: 'FileText', label: 'Emergency Scripts', desc: 'Guided scripts for tough moments' },
   { href: APP_ROUTES.EDUCATION, icon: 'BookOpen', label: 'Learn', desc: 'Understand recovery & addiction' },
   { href: APP_ROUTES.SAFETY, icon: 'Shield', label: 'Safety Tools', desc: 'Track triggers & build your plan' },
   { href: APP_ROUTES.CAREGIVER, icon: 'Heart', label: 'Caregiver', desc: 'Support for those who care' },
