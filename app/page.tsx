@@ -2,6 +2,7 @@
 // app/page.tsx - Home Screen
 import { useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import {
   AlertTriangle,
@@ -42,6 +43,7 @@ export default function HomePage() {
   return (
     <main className={styles.page}>
       <header className={styles.header}>
+        <Image src="/logo.png" alt="RecoverAI" width={1024} height={1024} className={styles.logo} sizes="44px" priority />
         <div>
           <p className={styles.greeting}>Good to see you,</p>
           <h1 className={styles.name}>{profile?.name ?? 'Friend'}</h1>
