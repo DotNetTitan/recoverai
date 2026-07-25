@@ -1,8 +1,8 @@
 'use client';
-// app/onboarding/page.tsx - 4-step onboarding flow
+// app/onboarding/page.tsx - 5-step onboarding flow
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, Check, Heart, Sprout, Volume2 } from 'lucide-react';
+import { ArrowRight, Check, Heart, Sparkles, Sprout, Volume2 } from 'lucide-react';
 import { UserProfile, UserRole } from '@/context/types';
 import { useProfile } from '@/hooks/useProfile';
 import { useSpeech } from '@/hooks/useSpeech';
@@ -41,10 +41,11 @@ export default function OnboardingPage() {
   }
 
   function canAdvance() {
-    if (step === 0) return name.trim().length > 0;
-    if (step === 1) return role !== '';
-    if (step === 2) return substances.length > 0;
-    if (step === 3) return contactName.trim().length > 0;
+    if (step === 0) return true;
+    if (step === 1) return name.trim().length > 0;
+    if (step === 2) return role !== '';
+    if (step === 3) return substances.length > 0;
+    if (step === 4) return contactName.trim().length > 0;
     return true;
   }
 
@@ -84,6 +85,15 @@ export default function OnboardingPage() {
         </div>
 
         {step === 0 && (
+          <div className={styles.welcomeContent}>
+            <Sparkles size={48} color="var(--color-gold)" className={styles.welcomeIcon} />
+            <p className={styles.welcomeSub}>
+              Your personal AI-powered companion for navigating recovery, one moment at a time.
+            </p>
+          </div>
+        )}
+
+        {step === 1 && (
           <div className={styles.stepContent}>
             <input
               className="input"
@@ -99,7 +109,7 @@ export default function OnboardingPage() {
           </div>
         )}
 
-        {step === 1 && (
+        {step === 2 && (
           <div className={`${styles.stepContent} stack`}>
             {ONBOARDING_ROLE_OPTIONS.map((option) => {
               const Icon = ROLE_ICON_MAP[option.value];
@@ -123,7 +133,7 @@ export default function OnboardingPage() {
           </div>
         )}
 
-        {step === 2 && (
+        {step === 3 && (
           <div className={styles.stepContent}>
             <p className={styles.chipGroupLabel}>Substances of concern</p>
             <div className={styles.chipWrap}>
@@ -157,7 +167,7 @@ export default function OnboardingPage() {
           </div>
         )}
 
-        {step === 3 && (
+        {step === 4 && (
           <div className={`${styles.stepContent} stack`}>
             <input
               className="input"
@@ -193,13 +203,15 @@ export default function OnboardingPage() {
           aria-label={step === ONBOARDING_TOTAL_STEPS - 1 ? 'Finish setup' : 'Next step'}
           id="next-btn"
         >
-          {step === ONBOARDING_TOTAL_STEPS - 1 ? (
+          {step === 0 ? (
+            <>Get Started <ArrowRight size={18} /></>
+          ) : step === ONBOARDING_TOTAL_STEPS - 1 ? (
             <>All set - Let&apos;s go <ArrowRight size={18} /></>
           ) : (
             <>Next <ArrowRight size={18} /></>
           )}
         </button>
-        {step === 3 && (
+        {step === 4 && (
           <button className="btn btn-ghost btn-full" onClick={handleNext} id="skip-btn">
             Skip for now
           </button>

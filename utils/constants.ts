@@ -147,9 +147,10 @@ export const CAREGIVER_ARTICLES = [
   { id: 'understanding', title: 'Understanding what they are going through', icon: 'BookOpen' },
 ] as const;
 
-export const ONBOARDING_TOTAL_STEPS = 4;
+export const ONBOARDING_TOTAL_STEPS = 5;
 
 export const ONBOARDING_STEP_PROMPTS = [
+  'Welcome to RecoverAI',
   "What's your first name?",
   'What brings you here today?',
   'Which substances are you concerned about?',
