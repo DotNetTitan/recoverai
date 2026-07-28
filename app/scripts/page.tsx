@@ -1,6 +1,6 @@
 'use client';
 // app/scripts/page.tsx — Personalized Emergency Scripts
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Home, MessageCircle, ShieldOff, Users } from 'lucide-react';
 import { AiStatus } from '@/components/AiStatus';
@@ -20,6 +20,8 @@ const ICON_MAP: Record<string, React.ElementType> = {
   'refuse-pressure': ShieldOff,
 };
 
+const CACHE_KEY = 'recoverai_script_cache';
+
 type Phase = 'select-type' | 'select-context' | 'loading' | 'response';
 
 export default function ScriptsPage() {
@@ -34,6 +36,23 @@ export default function ScriptsPage() {
   const [scriptContent, setScriptContent] = useState('');
   const [copied, setCopied] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
+  const [largeFont, setLargeFont] = useState(false);
+
+  useEffect(() => {
+    try {
+      const cached = sessionStorage.getItem(CACHE_KEY);
+      if (cached) {
+        const { content, typeId, context } = JSON.parse(cached);
+        const type = SCRIPT_TYPES.find(t => t.id === typeId);
+        if (type && context) {
+          setSelectedType(type);
+          setSelectedContext(context);
+          setScriptContent(content);
+          setPhase('response');
+        }
+      }
+    } catch { }
+  }, []);
 
   async function generateScript(type: typeof SCRIPT_TYPES[number], context: string) {
     setPhase('loading');
@@ -52,6 +71,9 @@ export default function ScriptsPage() {
     });
     setScriptContent(text);
     setPhase('response');
+    try {
+      sessionStorage.setItem(CACHE_KEY, JSON.stringify({ content: text, typeId: type.id, context }));
+    } catch { }
   }
 
   function handleTypeSelect(type: typeof SCRIPT_TYPES[number]) {
@@ -87,6 +109,7 @@ export default function ScriptsPage() {
   function handleDone() {
     stopSpeaking();
     setPhase('select-type');
+    try { sessionStorage.removeItem(CACHE_KEY); } catch { }
   }
 
   return (
@@ -127,6 +150,7 @@ export default function ScriptsPage() {
               <ScriptResponse
                 actionError={actionError}
                 copied={copied}
+                largeFont={largeFont}
                 scriptContent={scriptContent}
                 selectedContext={selectedContext}
                 selectedType={selectedType}
@@ -134,6 +158,7 @@ export default function ScriptsPage() {
                 onDone={handleDone}
                 onRegenerate={handleRegenerate}
                 onSpeak={speak}
+                onToggleFont={() => setLargeFont(v => !v)}
               />
             </>
           )}

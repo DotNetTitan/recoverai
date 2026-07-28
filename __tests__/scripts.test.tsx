@@ -35,6 +35,7 @@ jest.mock('@/hooks/useProfile', () => ({
 
 beforeEach(() => {
   jest.clearAllMocks();
+  sessionStorage.clear();
 });
 
 describe('Emergency Scripts', () => {

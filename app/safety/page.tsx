@@ -2,7 +2,7 @@
 // app/safety/page.tsx — Safety Tools (Trigger Tracker, Safety Plan, Grounding)
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Activity, ArrowLeft, ArrowRight, ClipboardList, Play, Square, Volume2, Wind, X } from 'lucide-react';
+import { Activity, ArrowLeft, ArrowRight, ClipboardList, Headphones, Play, Square, Volume2, Wind, X } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import { useGemini } from '@/hooks/useGemini';
 import { useSpeech } from '@/hooks/useSpeech';
@@ -11,6 +11,26 @@ import { AiStatus } from '@/components/AiStatus';
 import styles from './page.module.css';
 
 type Tab = 'grounding' | 'tracker' | 'plan';
+
+const TRACKER_INSIGHTS_PROMPT = `You are a supportive recovery coach analyzing a user's trigger log entries.
+Review their logged patterns — moods, situations, and outcomes — and provide:
+1. Key patterns or trends you notice
+2. Their most common triggers or risk situations
+3. What's been working well (positive outcomes)
+4. One practical suggestion going forward
+
+Keep the tone warm, encouraging, and concise. Format with short sections.`;
+
+const BODY_SCAN_STEPS = [
+  'Bring your attention to your feet. Notice any sensations — warmth, pressure, or tingling.',
+  'Slowly move your focus to your legs, knees, and thighs. Let them soften and relax.',
+  'Shift to your hips and lower back. Breathe into any tightness you notice.',
+  'Bring awareness to your stomach and chest. Feel your breath moving in and out naturally.',
+  'Notice your hands, arms, and shoulders. Let them drop and release any tension.',
+  'Bring attention to your neck and jaw. Soften your face, your eyes, your forehead.',
+  'Now scan your whole body from head to toe. Imagine a wave of relaxation washing over you.',
+  'Take one more deep breath. You are here, you are safe, you are grounded.',
+];
 
 const SAFETY_PLAN_PROMPT = `You are a supportive recovery assistant helping someone create a personalized safety plan for managing substance use recovery.
 
@@ -34,6 +54,23 @@ export default function SafetyPage() {
   const [safetyPlan, setSafetyPlan] = useState('');
   const [showLogForm, setShowLogForm] = useState(false);
   const [logForm, setLogForm] = useState({ mood: '', situation: '', outcome: '', notes: '' });
+  const [insights, setInsights] = useState('');
+  const [insightsLoading, setInsightsLoading] = useState(false);
+  const [bodyScan, setBodyScan] = useState(false);
+  const [bodyScanStep, setBodyScanStep] = useState(0);
+
+  async function handleGetInsights() {
+    setInsightsLoading(true);
+    setInsights('');
+    const logSummary = triggerLog.map(e => `Mood: ${e.mood}, Situation: ${e.situation}, Outcome: ${e.outcome}`).join('\n');
+    const text = await callGemini({
+      systemPrompt: TRACKER_INSIGHTS_PROMPT,
+      userMessage: `Here are my logged moments:\n${logSummary}\n\nWhat patterns do you see?`,
+      maxTokens: AI_CONFIG.DEFAULT_MAX_TOKENS,
+    });
+    setInsights(text);
+    setInsightsLoading(false);
+  }
 
   async function handleBuildPlan() {
     setSafetyPlan('');
@@ -105,7 +142,7 @@ export default function SafetyPage() {
               {breathing && (
                 <p className={styles.breathingInstruction}>
                   {BREATHING_EXERCISE_STEPS.map((label, index) => (
-                    <span key={label} className={styles.breathingStep}>
+                    <span key={`${label}-${index}`} className={styles.breathingStep}>
                       {label}
                       {index < BREATHING_EXERCISE_STEPS.length - 1 && <ArrowRight size={14} />}
                     </span>
@@ -121,6 +158,45 @@ export default function SafetyPage() {
                   <li key={step.count}><strong>{step.count}</strong> {step.text}</li>
                 ))}
               </ul>
+            </div>
+
+            <h2 className={styles.sectionTitle}>Body Scan Meditation</h2>
+            <div className={`card ${styles.bodyScanCard}`}>
+              <div className={styles.bodyScanHeader}>
+                <Headphones size={24} color="var(--color-gold)" />
+                <p className={styles.bodyScanDesc}>A guided scan from head to toe. Read aloud or follow silently.</p>
+              </div>
+              {!bodyScan ? (
+                <button className="btn btn-primary btn-full" onClick={() => { setBodyScan(true); setBodyScanStep(0); }}>
+                  <Play size={18} /> Start Guide
+                </button>
+              ) : (
+                <div className="stack">
+                  <div className={styles.bodyScanStepCard}>
+                    <p className={styles.bodyScanStepNumber}>Step {bodyScanStep + 1} of {BODY_SCAN_STEPS.length}</p>
+                    <p className={styles.bodyScanStepText}>{BODY_SCAN_STEPS[bodyScanStep]}</p>
+                  </div>
+                  <div className="grid-2">
+                    <button className="btn btn-outline" onClick={() => speak(BODY_SCAN_STEPS[bodyScanStep])}>
+                      <Volume2 size={18} /> Read aloud
+                    </button>
+                    {bodyScanStep < BODY_SCAN_STEPS.length - 1 ? (
+                      <button className="btn btn-primary" onClick={() => setBodyScanStep(s => s + 1)}>
+                        Next <ArrowRight size={18} />
+                      </button>
+                    ) : (
+                      <button className="btn btn-primary" onClick={() => setBodyScan(false)}>
+                        Done
+                      </button>
+                    )}
+                  </div>
+                  {bodyScanStep > 0 && (
+                    <button className="btn btn-ghost btn-full" onClick={() => setBodyScanStep(s => s - 1)}>
+                      Previous step
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -157,6 +233,28 @@ export default function SafetyPage() {
                        </div>
                      ))}
                    </div>
+                 )}
+
+                 {triggerLog.length >= 2 && (
+                   <>
+                     <h2 className={styles.sectionTitle}>Pattern Insights</h2>
+                     {insightsLoading ? (
+                       <AiStatus loading loadingClassName={styles.loadingPlan} skeletonHeight={60} />
+                     ) : insights ? (
+                       <div className={`card ${styles.insightsCard}`}>
+                         <div className={styles.insightsText}>
+                           {insights.split('\n').map((line, idx) => <p key={idx}>{line}</p>)}
+                         </div>
+                         <button className="btn btn-ghost" onClick={() => speak(insights)}>
+                           <Volume2 size={18} /> Read aloud
+                         </button>
+                       </div>
+                     ) : (
+                       <button className="btn btn-outline btn-full" onClick={handleGetInsights}>
+                         <Activity size={18} /> Analyze Patterns
+                       </button>
+                     )}
+                   </>
                  )}
                </>
              ) : (

@@ -277,3 +277,50 @@
   color: var(--color-warm-white);
   margin-bottom: 8px;
 }
+
+/* Body Scan */
+.bodyScanCard {
+  padding: 24px;
+}
+.bodyScanHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.bodyScanDesc {
+  font-size: var(--font-small);
+  color: var(--color-soft-stone);
+  flex: 1;
+}
+.bodyScanStepCard {
+  background: rgba(230, 242, 240, 0.06);
+  border-radius: var(--radius-btn);
+  padding: 20px;
+  text-align: center;
+}
+.bodyScanStepNumber {
+  font-size: 13px;
+  color: var(--color-gold);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.bodyScanStepText {
+  font-size: var(--font-body);
+  color: var(--color-warm-white);
+  line-height: 1.6;
+}
+
+/* Insights */
+.insightsCard {
+  padding: 20px;
+}
+.insightsText {
+  font-size: var(--font-body);
+  color: var(--color-warm-white);
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.insightsText p {
+  margin-bottom: 8px;
+}

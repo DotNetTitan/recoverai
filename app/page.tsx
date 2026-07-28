@@ -16,7 +16,7 @@ import {
   Wind,
 } from 'lucide-react';
 import { useProfile } from '@/hooks/useProfile';
-import { AFFIRMATIONS, APP_ROUTES, CRISIS_HOTLINE_TEL, HOME_NAV_CARDS } from '@/utils/constants';
+import { AI_CONFIG, AFFIRMATIONS, APP_ROUTES, CRISIS_HOTLINE_TEL, HOME_NAV_CARDS } from '@/utils/constants';
 import styles from './page.module.css';
 
 const HOME_ICON_MAP: Record<string, React.ElementType> = {
@@ -37,6 +37,14 @@ export default function HomePage() {
       router.replace(APP_ROUTES.ONBOARDING);
     }
   }, [isLoaded, isOnboarded, router]);
+
+  useEffect(() => {
+    fetch(AI_CONFIG.API_ROUTE, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ systemPrompt: 'warmup', userMessage: 'ping', maxTokens: 1 }),
+    }).catch(() => {});
+  }, []);
 
   if (!isLoaded || !isOnboarded) return null;
 

@@ -43,7 +43,7 @@ describe('useGemini', () => {
     });
 
     expect(output).toBe("I'm here for you. Please call 14416 (Tele-MANAS) if you need immediate help.");
-    expect(result.current.error).toBe('Could not reach AI. Please try again.');
+    expect(result.current.error).toBe('Could not connect. Please try again.');
   });
 
   it('returns fallback message on empty/ malformed response', async () => {

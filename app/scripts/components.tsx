@@ -18,6 +18,7 @@ interface ScriptContextSelectorProps {
 interface ScriptResponseProps {
   actionError: string | null;
   copied: boolean;
+  largeFont: boolean;
   scriptContent: string;
   selectedContext: string | null;
   selectedType: ScriptType | null;
@@ -25,6 +26,7 @@ interface ScriptResponseProps {
   onDone: () => void;
   onRegenerate: () => void;
   onSpeak: (text: string) => void;
+  onToggleFont: () => void;
 }
 
 export function ScriptTypeSelector({ iconMap, onSelect }: ScriptTypeSelectorProps) {
@@ -73,6 +75,7 @@ export function ScriptContextSelector({ onBack, onSelect }: ScriptContextSelecto
 export function ScriptResponse({
   actionError,
   copied,
+  largeFont,
   scriptContent,
   selectedContext,
   selectedType,
@@ -80,6 +83,7 @@ export function ScriptResponse({
   onDone,
   onRegenerate,
   onSpeak,
+  onToggleFont,
 }: ScriptResponseProps) {
   return (
     <div className="stack">
@@ -95,12 +99,18 @@ export function ScriptResponse({
         </div>
         <div className={styles.scriptBody}>
           {scriptContent.split('\n\n').map((para) => (
-            <p key={para} className={styles.scriptParagraph} onClick={() => onSpeak(para)}>
+            <p key={para} className={`${styles.scriptParagraph} ${largeFont ? styles.scriptParagraphLarge : ''}`} onClick={() => onSpeak(para)}>
               {para}
             </p>
           ))}
         </div>
         <p className={styles.tapToRead}>Tap any paragraph to hear it out loud.</p>
+      </div>
+
+      <div className="grid-2">
+        <button className="btn btn-ghost" onClick={onToggleFont}>
+          {largeFont ? 'Smaller text' : 'Larger text'}
+        </button>
       </div>
 
       <div className="grid-2">

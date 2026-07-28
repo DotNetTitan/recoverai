@@ -107,6 +107,11 @@
   background: rgba(230, 242, 240, 0.1);
 }
 
+.scriptParagraphLarge {
+  font-size: 20px;
+  line-height: 1.7;
+}
+
 .tapToRead {
   font-size: 13px;
   color: var(--color-soft-stone);
